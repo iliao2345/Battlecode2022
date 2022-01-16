@@ -31,8 +31,8 @@ def get_main_block(max_r2, interior_r2):
                                 else:
                                     subcontent = "Math.min("+var_name+", " + subcontent + ")"
                     if dx**2+dy**2<=2:
-#                        contents = contents + "\t\tdouble dist_" + str(i)+str(j) + " = (rc.onTheMap(loc_" + str(i)+str(j) + ") && rc.canMove(Math2.direction_to(" + str(dx) + ", " + str(dy) + ")))? " + subcontent + " + 10" + str([0,0.125,0.25,0.375,0.5,0.625,0.75,0.875][(round(atan2(dy,dx)/pi*4)+8)%8]) + " + rc.senseRubble(loc_" + str(i)+str(j) + ") : Double.MAX_VALUE;\n"
-                        contents = contents + "\t\tdouble dist_" + str(i)+str(j) + " = rc.onTheMap(loc_" + str(i)+str(j) + ")? " + subcontent + " + (rc.canMove(Math2.direction_to(" + str(dx) + ", " + str(dy) + "))? 1" + str([0.0625,0.125,0.1875,0.25,0.3125,0.375,0.4375,0.5,0.5625][(round(atan2(dy,dx)/pi*4)+8)%8]) + " : 20) + rc.senseRubble(loc_" + str(i)+str(j) + ") : Double.MAX_VALUE;\n"
+                        contents = contents + "\t\tdouble dist_" + str(i)+str(j) + " = (rc.onTheMap(loc_" + str(i)+str(j) + ") && rc.canMove(Math2.direction_to(" + str(dx) + ", " + str(dy) + ")))? " + subcontent + " + 1" + str([0.0625,0.125,0.1875,0.25,0.3125,0.375,0.4375,0.5,0.5625][(round(atan2(dy,dx)/pi*4)+8)%8]) + " + rc.senseRubble(loc_" + str(i)+str(j) + ") : Double.MAX_VALUE;\n"
+#                        contents = contents + "\t\tdouble dist_" + str(i)+str(j) + " = rc.onTheMap(loc_" + str(i)+str(j) + ")? " + subcontent + " + (rc.canMove(Math2.direction_to(" + str(dx) + ", " + str(dy) + "))? 1" + str([0.0625,0.125,0.1875,0.25,0.3125,0.375,0.4375,0.5,0.5625][(round(atan2(dy,dx)/pi*4)+8)%8]) + " : 20) + rc.senseRubble(loc_" + str(i)+str(j) + ") : Double.MAX_VALUE;\n"
                     elif dx**2+dy**2 >= interior_r2:
                         count2 += 1
                         contents = contents + "\t\tdouble dist_" + str(i)+str(j) + " = rc.onTheMap(loc_" + str(i)+str(j) + ")? " + subcontent + " + 10 + rc.senseRubble(loc_" + str(i)+str(j) + ") + (int)(delay_factor*Math.sqrt(loc_" + str(i)+str(j) + ".distanceSquaredTo(target_loc))) : Double.MAX_VALUE;\n"
@@ -53,7 +53,7 @@ interior_r2 = 13
 #max_r2 = 10
 #interior_r2 = 5
 
-contents = """package comm_micro_21;
+contents = """package original_fixed_4;
 import battlecode.common.*;
 
 public class Bfs {
@@ -82,6 +82,6 @@ public class Bfs {
 """
 
 
-with open('./src/comm_micro_21/Bfs.java', 'w') as f:
+with open('./src/original_fixed_4/Bfs.java', 'w') as f:
     f.write(contents)
 
