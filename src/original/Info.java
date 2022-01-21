@@ -18,6 +18,7 @@ public class Info {
 	public static int MAP_WIDTH;
 	public static int MAP_HEIGHT;
 	public static final double RUBBLE_ESTIMATE_DECAY = 0.2;
+	public static final double PATHING_PERCOLATION_CONSTANT = 0.4;  // I don't know what the actual value is, this is a guess
 
 	public static boolean action_ready;
 	public static boolean move_ready;
@@ -70,6 +71,8 @@ public class Info {
 	public static double average_rubble = 10;
 	public static boolean encountered_attackers = false;
 	public static boolean encountered_enemies = false;
+	public static double rubble_quantile = 0;
+	public static int last_move_turn = 0;
 	
 	public static void initialize(RobotController rc) throws GameActionException {
 		Action.rc = rc;
@@ -224,9 +227,36 @@ public class Info {
 			}
 		}
 		
+		if (round_num==1 && type==RobotType.ARCHON) {
+			int[] rubbles = new int[5];
+			for (int i=5; --i>=0;) {
+				rubbles[i] = rc.senseRubble(visible_tiles[rng.nextInt(Info.visible_tiles.length)]);
+			}
+			int min_rubble = Math.min(Math.min(Math.min(Math.min(rubbles[0], rubbles[1]), rubbles[2]), rubbles[3]), rubbles[4]);
+			int second_min_rubble = Integer.MAX_VALUE;
+			boolean min_rubble_already_iterated = false;
+			for (int i=5; --i>=0;) {
+				if ((rubbles[i] > min_rubble || min_rubble_already_iterated) && rubbles[i] < second_min_rubble) {
+					second_min_rubble = rubbles[i];
+				}
+				if (rubbles[i] == min_rubble) {
+					min_rubble_already_iterated = true;
+				}
+			}
+			average_rubble = (rubbles[0] + rubbles[1] + rubbles[2] + rubbles[3] + rubbles[4])/5.;
+			rubble_quantile = second_min_rubble;
+		}
+		
 		double added_rubble = 0;
 		for (int i=2; --i>=0;) {
-			added_rubble += rc.senseRubble(Info.visible_tiles[Info.rng.nextInt(Info.visible_tiles.length)]);
+			int rubble = rc.senseRubble(visible_tiles[Info.rng.nextInt(visible_tiles.length)]);
+			added_rubble += rubble;
+			if (rubble > rubble_quantile) {
+				rubble_quantile += PATHING_PERCOLATION_CONSTANT / Math.sqrt(PATHING_PERCOLATION_CONSTANT*(1-PATHING_PERCOLATION_CONSTANT));
+			}
+			else {
+				rubble_quantile -= (1-PATHING_PERCOLATION_CONSTANT) / Math.sqrt(PATHING_PERCOLATION_CONSTANT*(1-PATHING_PERCOLATION_CONSTANT));
+			}
 		}
 		average_rubble += RUBBLE_ESTIMATE_DECAY*(added_rubble/2-average_rubble);
 		
@@ -234,6 +264,7 @@ public class Info {
 		encountered_enemies = encountered_enemies || enemy_robots.length > 0;
 		
 		//  This must be last
+		Bfs.reset();
 		if (rc.getType()==RobotType.ARCHON) {
 			Archon.update();
 		}

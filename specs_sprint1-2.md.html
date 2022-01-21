@@ -1,0 +1,964 @@
+
+<!-- saved from url=(0052)https://play.battlecode.org/specs/2022/specs.md.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=600, initial-scale=1"><style>body{max-width:680px;margin:auto;padding:20px;text-align:justify;line-height:140%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-smoothing:antialiased;color:#222;font-family:Palatino,Georgia,"Times New Roman",serif}</style><style>@media print{*{-webkit-print-color-adjust:exact;text-shadow:none !important}}body{counter-reset: h1 paragraph line item list-item}@page{margin:0;size:auto}#mdContextMenu{position:absolute;background:#383838;cursor:default;border:1px solid #999;color:#fff;padding:4px 0px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,"Helvetica Neue",sans-serif;font-size:85%;font-weight:600;border-radius:4px;box-shadow:0px 3px 10px rgba(0,0,0,35%)}#mdContextMenu div{padding:0px 20px}#mdContextMenu div:hover{background:#1659d1}.md code,.md pre{font-family:Menlo,Consolas,monospace;font-size:93%;text-align:left;line-height:140%}.md .mediumToc code,.md longToc code,.md .shortToc code,.md h1 code,.md h2 code,.md h3 code,.md h4 code,.md h5 code,.md h6 code{font-size:unset}.md div.title{font-size:26px;font-weight:800;line-height:120%;text-align:center}.md div.afterTitles{height:10px}.md div.subtitle{text-align:center}.md iframe.textinsert, .md object.textinsert,.md iframe:not(.markdeep){display:block;margin-top:10px;margin-bottom:10px;width:100%;height:75vh;border:1px solid #000;border-radius:4px;background:#f5f5f4}.md .image{display:inline-block}.md img{max-width:100%;page-break-inside:avoid}.md li{text-align:left;text-indent:0}.md pre.listing {width:100%;tab-size:4;-moz-tab-size:4;-o-tab-size:4;counter-reset:line;overflow-x:auto;resize:horizontal}.md pre.listing .linenumbers span.line:before{width:30px;margin-left:-28px;font-size:80%;text-align:right;counter-increment:line;content:counter(line);display:inline-block;padding-right:13px;margin-right:8px;color:#ccc}.md div.tilde{margin:20px 0 -10px;text-align:center}.md .imagecaption,.md .tablecaption,.md .listingcaption{display:inline-block;margin:7px 5px 12px;text-align:justify;font-style:italic}.md img.pixel{image-rendering:-moz-crisp-edges;image-rendering:pixelated}.md blockquote.fancyquote{margin:25px 0 25px;text-align:left;line-height:160%}.md blockquote.fancyquote::before{content:"“";color:#DDD;font-family:Times New Roman;font-size:45px;line-height:0;margin-right:6px;vertical-align:-0.3em}.md span.fancyquote{font-size:118%;color:#777;font-style:italic}.md span.fancyquote::after{content:"”";font-style:normal;color:#DDD;font-family:Times New Roman;font-size:45px;line-height:0;margin-left:6px;vertical-align:-0.3em}.md blockquote.fancyquote .author{width:100%;margin-top:10px;display:inline-block;text-align:right}.md small{font-size:60%}.md big{font-size:150%}.md div.title,contents,.md .tocHeader,.md h1,.md h2,.md h3,.md h4,.md h5,.md h6,.md .shortTOC,.md .mediumTOC,.nonumberh1,.nonumberh2,.nonumberh3,.nonumberh4,.nonumberh5,.nonumberh6{font-family:Verdana,Helvetica,Arial,sans-serif;margin:13.4px 0 13.4px;padding:15px 0 3px;border-top:none;clear:both}.md .tocTop {display:none}.md h1,.md h2,.md h3,.md h4,.md h5,.md h6,.md .nonumberh1,.md .nonumberh2,.md .nonumberh3,.md .nonumberh4,.md .nonumberh5,.md .nonumberh6{page-break-after:avoid;break-after:avoid}.md svg.diagram{display:block;font-family:Menlo,Consolas,monospace;font-size:93%;text-align:center;stroke-linecap:round;stroke-width:2px;page-break-inside:avoid;stroke:#000;fill:#000}.md svg.diagram .opendot{fill:#fff}.md svg.diagram .shadeddot{fill:#CCC}.md svg.diagram .dotteddot{stroke:#000;stroke-dasharray:4;fill:none}.md svg.diagram text{stroke:none}@media print{@page{margin:1in 5mm;transform: scale(150%)}}@media print{.md .pagebreak{page-break-after:always;visibility:hidden}}.md a{font-family:Georgia,Palatino,'Times New Roman'}.md h1,.md .tocHeader,.md .nonumberh1{border-bottom:3px solid;font-size:20px;font-weight:bold;}.md h1,.md .nonumberh1{counter-reset:h2 h3 h4 h5 h6}.md h2,.md .nonumberh2{counter-reset:h3 h4 h5 h6;border-bottom:2px solid #999;color:#555;font-weight:bold;font-size:18px;}.md h3,.md h4,.md h5,.md h6,.md .nonumberh3,.md .nonumberh4,.md .nonumberh5,.md .nonumberh6{font-family:Verdana,Helvetica,Arial,sans-serif;color:#555;font-size:16px;}.md h3{counter-reset:h4 h5 h6}.md h4{counter-reset:h5 h6}.md h5{counter-reset:h6}.md div.table{margin:16px 0 16px 0}.md table{border-collapse:collapse;line-height:140%;page-break-inside:avoid}.md table.table{margin:auto}.md table.calendar{width:100%;margin:auto;font-size:11px;font-family:Verdana,Helvetica,Arial,sans-serif}.md table.calendar th{font-size:16px}.md .today{background:#ECF8FA}.md .calendar .parenthesized{color:#999;font-style:italic}.md table.table th{color:#FFF;background-color:#AAA;border:1px solid #888;padding:8px 15px 8px 15px}.md table.table td{padding:5px 15px 5px 15px;border:1px solid #888}.md table.table tr:nth-child(even){background:#EEE}.md pre.tilde{border-top: 1px solid #CCC;border-bottom: 1px solid #CCC;padding: 5px 0 5px 20px;margin:0 0 0 0;background:#FCFCFC;page-break-inside:avoid}.md a.target{width:0px;height:0px;visibility:hidden;font-size:0px;display:inline-block}.md a:link, .md a:visited{color:#38A;text-decoration:none}.md a:link:hover{text-decoration:underline}.md dt{font-weight:700}.md dl>dd{margin-top:-8px; margin-bottom:8px}.md dl>table{margin:35px 0 30px}.md code{page-break-inside:avoid;} @media print{.md .listing code{white-space:pre-wrap}}.md .endnote{font-size:13px;line-height:15px;padding-left:10px;text-indent:-10px}.md .bib{padding-left:80px;text-indent:-80px;text-align:left}.markdeepFooter{font-size:9px;text-align:right;padding-top:80px;color:#999}.md .mediumTOC{float:right;font-size:12px;line-height:15px;border-left:1px solid #CCC;padding-left:15px;margin:15px 0px 15px 25px}.md .mediumTOC .level1{font-weight:600}.md .longTOC .level1{font-weight:600;display:block;padding-top:12px;margin:0 0 -20px}.md .shortTOC{text-align:center;font-weight:bold;margin-top:15px;font-size:14px}.md .admonition{position:relative;margin:1em 0;padding:.4rem 1rem;border-radius:.2rem;border-left:2.5rem solid rgba(68,138,255,.4);background-color:rgba(68,138,255,.15);}.md .admonition-title{font-weight:bold;border-bottom:solid 1px rgba(68,138,255,.4);padding-bottom:4px;margin-bottom:4px;margin-left: -1rem;padding-left:1rem;margin-right:-1rem;border-color:rgba(68,138,255,.4)}.md .admonition.tip{border-left:2.5rem solid rgba(50,255,90,.4);background-color:rgba(50,255,90,.15)}.md .admonition.tip::before{content:"\24d8";font-weight:bold;font-size:150%;position:relative;top:3px;color:rgba(26,128,46,.8);left:-2.95rem;display:block;width:0;height:0}.md .admonition.tip>.admonition-title{border-color:rgba(50,255,90,.4)}.md .admonition.warn,.md .admonition.warning{border-left:2.5rem solid rgba(255,145,0,.4);background-color:rgba(255,145,0,.15)}.md .admonition.warn::before,.md .admonition.warning::before{content:"\26A0";font-weight:bold;font-size:150%;position:relative;top:2px;color:rgba(128,73,0,.8);left:-2.95rem;display:block;width:0;height:0}.md .admonition.warn>.admonition-title,.md .admonition.warning>.admonition-title{border-color:rgba(255,145,0,.4)}.md .admonition.error{border-left: 2.5rem solid rgba(255,23,68,.4);background-color:rgba(255,23,68,.15)}.md .admonition.error>.admonition-title{border-color:rgba(255,23,68,.4)}.md .admonition.error::before{content: "\2612";font-family:"Arial";font-size:200%;position:relative;color:rgba(128,12,34,.8);top:-2px;left:-3rem;display:block;width:0;height:0}.md .admonition p:last-child{margin-bottom:0}.md li.checked,.md li.unchecked{list-style:none;overflow:visible;text-indent:-1.2em}.md li.checked:before,.md li.unchecked:before{content:"\2611";display:block;float:left;width:1em;font-size:120%}.md li.unchecked:before{content:"\2610"}</style><style>.md h1::before {
+content:counter(h1) " ";
+counter-increment: h1;margin-right:10px}
+
+.md h2::before {
+content:counter(h1) "."counter(h2) " ";
+counter-increment: h2;margin-right:10px}
+
+.md h3::before {
+content:counter(h1) "."counter(h2) "."counter(h3) " ";
+counter-increment: h3;margin-right:10px}
+
+.md h4::before {
+content:counter(h1) "."counter(h2) "."counter(h3) "."counter(h4) " ";
+counter-increment: h4;margin-right:10px}
+
+.md h5::before {
+content:counter(h1) "."counter(h2) "."counter(h3) "."counter(h4) "."counter(h5) " ";
+counter-increment: h5;margin-right:10px}
+
+.md h6::before {
+content:counter(h1) "."counter(h2) "."counter(h3) "."counter(h4) "."counter(h5) "."counter(h6) " ";
+counter-increment: h6;margin-right:10px}
+
+</style><style>.hljs{display:block;overflow-x:auto;padding:0.5em;background:#fff;color:#000;-webkit-text-size-adjust:none}.hljs-comment{color:#006a00}.hljs-keyword{color:#02E}.hljs-literal,.nginx .hljs-title{color:#aa0d91}.method,.hljs-list .hljs-title,.hljs-tag .hljs-title,.setting .hljs-value,.hljs-winutils,.tex .hljs-command,.http .hljs-title,.hljs-request,.hljs-status,.hljs-name{color:#008}.hljs-envvar,.tex .hljs-special{color:#660}.hljs-string{color:#c41a16}.hljs-tag .hljs-value,.hljs-cdata,.hljs-filter .hljs-argument,.hljs-attr_selector,.apache .hljs-cbracket,.hljs-date,.hljs-regexp{color:#080}.hljs-sub .hljs-identifier,.hljs-pi,.hljs-tag,.hljs-tag .hljs-keyword,.hljs-decorator,.ini .hljs-title,.hljs-shebang,.hljs-prompt,.hljs-hexcolor,.hljs-rule .hljs-value,.hljs-symbol,.hljs-symbol .hljs-string,.hljs-number,.css .hljs-function,.hljs-function .hljs-title,.coffeescript .hljs-attribute{color:#A0C}.hljs-function .hljs-title{font-weight:bold;color:#000}.hljs-class .hljs-title,.smalltalk .hljs-class,.hljs-type,.hljs-typename,.hljs-tag .hljs-attribute,.hljs-doctype,.hljs-class .hljs-id,.hljs-built_in,.setting,.hljs-params,.clojure .hljs-attribute{color:#5c2699}.hljs-variable{color:#3f6e74}.css .hljs-tag,.hljs-rule .hljs-property,.hljs-pseudo,.hljs-subst{color:#000}.css .hljs-class,.css .hljs-id{color:#9b703f}.hljs-value .hljs-important{color:#ff7700;font-weight:bold}.hljs-rule .hljs-keyword{color:#c5af75}.hljs-annotation,.apache .hljs-sqbracket,.nginx .hljs-built_in{color:#9b859d}.hljs-preprocessor,.hljs-preprocessor *,.hljs-pragma{color:#643820}.tex .hljs-formula{background-color:#eee;font-style:italic}.diff .hljs-header,.hljs-chunk{color:#808080;font-weight:bold}.diff .hljs-change{background-color:#bccff9}.hljs-addition{background-color:#baeeba}.hljs-deletion{background-color:#ffc8bd}.hljs-comment .hljs-doctag{font-weight:bold}.method .hljs-id{color:#000}</style><style>div.title { padding-top: 40px; } div.afterTitles { height: 15px; }</style>
+<link rel="stylesheet" href="./specs_sprint1-2.md_files/journal.css">
+<style>
+@media (max-width: 576px) {
+  body {
+    position: absolute;
+    left: 0;
+    margin-left: 0;
+  }
+  .md .longTOC {
+    display: none;
+  }
+}
+</style>
+
+
+<script type="text/javascript" src="./specs_sprint1-2.md_files/MathJax.js.download"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none; box-sizing: content-box}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_test {font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow: hidden; height: 1px}
+.MathJax_test.mjx-test-display {display: table!important}
+.MathJax_test.mjx-test-inline {display: inline!important; margin-right: -1px}
+.MathJax_test.mjx-test-default {display: block!important; clear: both}
+.MathJax_ex_box {display: inline-block!important; position: absolute; overflow: hidden; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0; width: 1px; height: 60ex}
+.MathJax_em_box {display: inline-block!important; position: absolute; overflow: hidden; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0; width: 1px; height: 60em}
+.mjx-test-inline .MathJax_left_box {display: inline-block; width: 0; float: left}
+.mjx-test-inline .MathJax_right_box {display: inline-block; width: 0; float: right}
+.mjx-test-display .MathJax_right_box {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Main; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff?V=2.7.6') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf?V=2.7.6') format('opentype')}
+@font-face {font-family: MathJax_Main-bold; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff?V=2.7.6') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf?V=2.7.6') format('opentype')}
+@font-face {font-family: MathJax_Main-italic; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff?V=2.7.6') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf?V=2.7.6') format('opentype')}
+@font-face {font-family: MathJax_Math-italic; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff?V=2.7.6') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf?V=2.7.6') format('opentype')}
+@font-face {font-family: MathJax_Caligraphic; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff?V=2.7.6') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf?V=2.7.6') format('opentype')}
+@font-face {font-family: MathJax_Size1; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff?V=2.7.6') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf?V=2.7.6') format('opentype')}
+@font-face {font-family: MathJax_Size2; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff?V=2.7.6') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf?V=2.7.6') format('opentype')}
+@font-face {font-family: MathJax_Size3; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff?V=2.7.6') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf?V=2.7.6') format('opentype')}
+@font-face {font-family: MathJax_Size4; src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff?V=2.7.6') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf?V=2.7.6') format('opentype')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><body id="md" style="visibility: visible;" class="scrolled"><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"><br></div></div><div id="MathJax_Message" style="display: none;"></div><script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "AMS"} } });</script><span style="display:none"><span class="MathJax_Preview" style="color: inherit;"></span><div class="MathJax_Display" style="text-align: center;"><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" style="text-align: center; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot; /&gt;" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 0em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(3.857em, 1000em, 4.169em, -999.997em); top: -4.008em; left: 0em;"><span class="mrow" id="MathJax-Span-2"></span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.128em;"></span></span></nobr><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"></math></span></span></div><script type="math/tex; mode=display" id="MathJax-Element-1">\newcommand{\n}{\hat{n}}\newcommand{\thetai}{\theta_\mathrm{i}}\newcommand{\thetao}{\theta_\mathrm{o}}\newcommand{\d}[1]{\mathrm{d}#1}\newcommand{\w}{\hat{\omega}}\newcommand{\wi}{\w_\mathrm{i}}\newcommand{\wo}{\w_\mathrm{o}}\newcommand{\wh}{\w_\mathrm{h}}\newcommand{\Li}{L_\mathrm{i}}\newcommand{\Lo}{L_\mathrm{o}}\newcommand{\Le}{L_\mathrm{e}}\newcommand{\Lr}{L_\mathrm{r}}\newcommand{\Lt}{L_\mathrm{t}}\newcommand{\O}{\mathrm{O}}\newcommand{\degrees}{{^{\large\circ}}}\newcommand{\T}{\mathsf{T}}\newcommand{\mathset}[1]{\mathbb{#1}}\newcommand{\Real}{\mathset{R}}\newcommand{\Integer}{\mathset{Z}}\newcommand{\Boolean}{\mathset{B}}\newcommand{\Complex}{\mathset{C}}\newcommand{\un}[1]{\,\mathrm{#1}}</script>
+</span>
+<span class="md"><p>
+</p><div class="longTOC"><div class="tocHeader">Contents</div><p><a href="https://play.battlecode.org/specs/2022/specs.md.html#" class="tocTop">(Top)</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#formalspecification" class="level1"><span class="tocNumber">1&nbsp; </span>Formal specification</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#background" class="level1"><span class="tocNumber">2&nbsp; </span>Background</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#objective" class="level1"><span class="tocNumber">3&nbsp; </span>Objective</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#robots" class="level1"><span class="tocNumber">4&nbsp; </span>Robots</a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#robots/buildingsoverview" class="level2"><span class="tocNumber">4.1&nbsp; </span>Buildings overview</a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#robots/droidsoverview" class="level2"><span class="tocNumber">4.2&nbsp; </span>Droids overview</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#anomalies" class="level1"><span class="tocNumber">5&nbsp; </span>Anomalies</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#mapoverview" class="level1"><span class="tocNumber">6&nbsp; </span>Map overview</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#metals" class="level1"><span class="tocNumber">7&nbsp; </span>Metals</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#rubble" class="level1"><span class="tocNumber">8&nbsp; </span>Rubble</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#resourcereclaim" class="level1"><span class="tocNumber">9&nbsp; </span>Resource reclaim</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#communication" class="level1"><span class="tocNumber">10&nbsp; </span>Communication</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#sensingandvision" class="level1"><span class="tocNumber">11&nbsp; </span>Sensing and vision</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#victoryandtiebreaks" class="level1"><span class="tocNumber">12&nbsp; </span>Victory and tiebreaks</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#actionsandcooldowns" class="level1"><span class="tocNumber">13&nbsp; </span>Actions and cooldowns</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#robotsin-depth" class="level1"><span class="tocNumber">14&nbsp; </span>Robots in-depth</a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#robotsin-depth/buildings" class="level2"><span class="tocNumber">14.1&nbsp; </span>Buildings</a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#robotsin-depth/droids" class="level2"><span class="tocNumber">14.2&nbsp; </span>Droids</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#bytecodelimits" class="level1"><span class="tocNumber">15&nbsp; </span>Bytecode limits</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:otherresourcesandutilities" class="level1"><span class="tocNumber">16&nbsp; </span>Appendix: Other resources and utilities</a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:otherresourcesandutilities/sampleplayer" class="level2"><span class="tocNumber">16.1&nbsp; </span><strong class="asterisk">Sample player</strong></a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:otherresourcesandutilities/debugging" class="level2"><span class="tocNumber">16.2&nbsp; </span><strong class="asterisk">Debugging</strong></a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:otherresourcesandutilities/monitoring" class="level2"><span class="tocNumber">16.3&nbsp; </span><strong class="asterisk">Monitoring</strong></a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:otherresourcesandutilities/gameactionexceptions" class="level2"><span class="tocNumber">16.4&nbsp; </span><strong class="asterisk">GameActionExceptions</strong></a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:otherresourcesandutilities/completedocumentation" class="level2"><span class="tocNumber">16.5&nbsp; </span><strong class="asterisk">Complete documentation</strong></a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:otherrestrictions" class="level1"><span class="tocNumber">17&nbsp; </span>Appendix: Other restrictions</a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:otherrestrictions/javalanguageusage" class="level2"><span class="tocNumber">17.1&nbsp; </span><strong class="asterisk">Java language usage</strong></a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:otherrestrictions/memoryusage" class="level2"><span class="tocNumber">17.2&nbsp; </span><strong class="asterisk">Memory usage</strong></a><br>
+&nbsp;&nbsp;<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:otherrestrictions/moreinformationonbytecodecosts" class="level2"><span class="tocNumber">17.3&nbsp; </span><strong class="asterisk">More information on bytecode costs</strong></a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:lingeringquestionsandclarifications" class="level1"><span class="tocNumber">18&nbsp; </span>Appendix: Lingering questions and clarifications</a><br>
+<a href="https://play.battlecode.org/specs/2022/specs.md.html#appendix:changelog" class="level1"><span class="tocNumber">19&nbsp; </span>Appendix: Changelog</a><br>
+</p></div><a class="target" name="formalspecification">&nbsp;</a><a class="target" name="formalspecification">&nbsp;</a><a class="target" name="toc1">&nbsp;</a><h1>Formal specification</h1>
+<p>
+
+
+<em class="asterisk">This is the formal specification of the Battlecode 2022 game.</em> Current version: <em class="asterisk">2022.1.0.2</em>
+
+</p><p>
+
+<strong class="asterisk">Welcome to Battlecode 2022: Mutation.</strong>
+
+</p><p>
+
+This is a high-level overview of this year's game. It is highly recommended to read this entire document before you begin writing bots.
+
+</p><p>
+
+<em class="asterisk">This document and the game it describes may be tweaked as the competition progresses. We'll try to keep changes to a minimum, but may have to make modifications to keep the game balanced. Any changes will be announced in the official Discord channel. You may find a Changelog at the bottom of this document.</em>
+
+</p>
+<a class="target" name="background">&nbsp;</a><a class="target" name="background">&nbsp;</a><a class="target" name="toc2">&nbsp;</a><h1>Background</h1>
+<p>
+
+
+The dust settles on the scorched landscape, the sun's glare harsh and unforgiving. The world is a radioactive wasteland, overrun with mutations and anomalies. Buildings have learned to walk, transmutation has given birth to the blooming science of alchemy, and even the robots have become sentient.
+
+</p><p>
+
+The arduous task of restoring civilization is yet to begin, but amidst the uncertainty, two warring factions of robots have emerged. History is being written before our eyes, for only one faction will rise above the turmoil to secure the future of the world.
+
+</p>
+<a class="target" name="objective">&nbsp;</a><a class="target" name="objective">&nbsp;</a><a class="target" name="toc3">&nbsp;</a><h1>Objective</h1>
+<p>
+
+
+In <strong class="asterisk">Battlecode: Mutation</strong>, you will write code to control your faction of robots, in a dangerous battle to conquer the enemy team.
+
+</p><p>
+
+The game world is subject to frequent Anomalies that can inflict long-lasting damage to both teams. Each player will begin with several Archons, and the player who loses all Archons first loses the game. Players must create robots that can tolerate onslaughts of Anomalies as they fight the opposing player faction.
+
+</p><p>
+
+Good luck!
+
+</p>
+<a class="target" name="robots">&nbsp;</a><a class="target" name="robots">&nbsp;</a><a class="target" name="toc4">&nbsp;</a><h1>Robots</h1>
+<p>
+
+
+The Battlecode world involves many robots of different kinds. These robots can perform actions such as attacking, moving, and communicating with each other. In each battle, your robots will face an enemy faction on the game map.
+
+</p><p>
+
+The game is turn-based and divided into <strong class="asterisk">rounds</strong>. In each round, every robot gets a <strong class="asterisk">turn</strong> in which it gets a chance to run code and take actions. Code that a robot runs costs <strong class="asterisk">bytecodes</strong>, a measure of computational resources. A robot only has a predetermined amount of bytecodes available per turn, after which the robot's turn is immediately ended and computations are resumed on its next turn. If your robot has finished its turn, it should call <code>Clock.yield()</code> to wait for the next turn to begin.
+
+</p><p>
+
+All robots have a certain amount of HP (also known as hitpoints, health, life, or such). When a robot's HP reaches zero, the robot is immediately removed from the game.
+
+</p><p>
+
+Robots are assigned unique random IDs no smaller than 10,000, except for your Archons.
+
+</p><p>
+
+Robots interact with only their nearby surroundings through sensing, moving, and special abilities. Each robot runs an independent copy of your code. Robots will be unable to share static variables (they will each have their own copy), because they are run in separate JVMs.
+
+</p><p>
+
+There are two types of robots: Droids and Buildings. Droids are robots which can freely move, forming your team's mobile combat forces; on the other hand, Buildings are generally immobile robots. You can create new robots by spending its associated resource cost. Different types of robots specialize in different tasks, and you should aim to use each type to your advantage.
+
+</p>
+<a class="target" name="buildingsoverview">&nbsp;</a><a class="target" name="robots/buildingsoverview">&nbsp;</a><a class="target" name="toc4.1">&nbsp;</a><h2>Buildings overview</h2>
+<p>
+
+
+Buildings are generally immobile robots. When first created, they are Prototypes that cannot move or act; after they are fully built, they become Turrets that can perform actions.
+
+</p><p>
+
+There are three types of Buildings.
+
+</p><p>
+
+</p><ul>
+<li class="minus">Archons are headquarter Buildings that cannot be constructed. Each team starts with between 1 to 4 Archons inclusive as specified by the map, all at maximum health. Archons cannot attack, but they can build new Droids, and repair nearby Droids to increase their health.
+</li>
+<li class="minus">Laboratories house alchemists who convert Lead into Gold. Laboratories cannot attack, but can choose to produce exactly 1 Au per turn by spending Lead at a variable conversion rate. Alchemists prefer working in solitude and spend less Lead when fewer friendly robots are in their vision range.
+</li>
+<li class="minus">Watchtowers are defensive Buildings that reinforce an area. Watchtowers can deal powerful attacks to robots in a large range.</li></ul>
+
+<p></p><p>
+
+As a special mechanic, Buildings are allowed to transform between Turret and Portable mode. Each transformation takes place over 10 turns, during which the Building will be unable to take any actions.
+
+</p><p>
+
+</p><ul>
+<li class="minus">In Turret mode, they can perform their regular action, but not move.
+</li>
+<li class="minus">In Portable mode, they can move, but not perform their regular action.</li></ul>
+
+<p></p><p>
+
+Finally, Buildings can also be Mutated to increase their mutation level. Mutating a building causes it to become stronger, more powerful, and more formidable. Buildings begin at mutation level 1, and there are a total of 3 mutation levels.
+
+</p>
+<a class="target" name="droidsoverview">&nbsp;</a><a class="target" name="robots/droidsoverview">&nbsp;</a><a class="target" name="toc4.2">&nbsp;</a><h2>Droids overview</h2>
+<p>
+
+
+Droids are highly mobile robots that form the foundation of your strategic and offensive capability.
+
+</p><p>
+
+</p><ul>
+<li class="minus">Miners are resource-farming Droids that collect resources scattered on the game map. Collected resources are instantly added to your team's resource bank, and are available for immediate use.
+</li>
+<li class="minus">Builders are worker Droids that create new Buildings, and repair existing ones. New Buildings are initially in Prototype mode and must be repaired to full health before becoming Turrets.
+</li>
+<li class="minus">Soldiers are general-purpose ranged attacking Droids.
+</li>
+<li class="minus">Sages are Droids that can cause Anomalies. Anomalies caused by Sages affect a much smaller area than naturally-occurring ones, but have much more concentrated effects.</li></ul>
+
+<p></p>
+<a class="target" name="anomalies">&nbsp;</a><a class="target" name="anomalies">&nbsp;</a><a class="target" name="toc5">&nbsp;</a><h1>Anomalies</h1>
+<p>
+
+
+The world is unstable. Anomalies are extraordinary events that may occur periodically, and can have long-lasting effects on your robots. Your advanced technology means you can access the forecast of all impending Anomalies; to thrive, your robots should be robust and designed to withstand them.
+
+</p><p>
+
+The schedule of Anomalies is predetermined for each map and can be sensed by your robots. You can generally expect them to occur naturally approximately once every 200 rounds, although this can vary. There are five different types of anomalies, as listed below.
+
+</p><p>
+
+</p><ul>
+<li class="minus">Abyss: Matter is lost into the abyss of spacetime. 10% of resources in all squares, as well as team reserves, are lost.
+</li>
+<li class="minus">Charge: The air begins to conduct electricity, and tight packs of Droids short-circuit. The top 5% Droids with the most friendly robots in sensor radius are destroyed.
+</li>
+<li class="minus">Fury: A searing solar flare erupts from the sun. All buildings in turret mode have 5% of their max health burned off.
+</li>
+<li class="minus">Vortex: The world is upended and the terrain is reoriented based on the symmetry of the map.
+<ul>
+    <li class="minus">Horizontally Symmetric Map: Terrain is reflected across a vertical central line
+</li>
+    <li class="minus">Vertically Symmetric Map: Terrain is reflected across a horizontal central line
+</li>
+    <li class="minus">Rotationally Symmetric Map: Terrain change is chosen uniformly randomly between
+<ul>
+        <li class="minus">Reflection across central vertical line
+</li>
+        <li class="minus">Reflection across central horizontal line
+</li>
+        <li class="minus">Rotation of 90° clockwise (Only for square maps)
+</li></ul>
+</li></ul>
+</li><li class="minus">Singularity: A black hole finds the weaker team and consumes it. This is guaranteed to happen on, and only on, turn 2000, and the team is selected via the tiebreakers listed in the Victory section.</li></ul>
+
+<p></p>
+<a class="target" name="mapoverview">&nbsp;</a><a class="target" name="mapoverview">&nbsp;</a><a class="target" name="toc6">&nbsp;</a><h1>Map overview</h1>
+<p>
+
+
+Each Battlecode game will be played on a map. The map is a discrete 2-dimensional rectangular grid, of size ranging between 20×20 and 60×60 inclusive. The bottom-left corner of the map will have coordinates (0, 0); coordinates increase East (right) and North (up). Coordinates on the map are represented as <code>MapLocation</code> objects holding the <code>x</code> and <code>y</code> coordinates of the location.
+
+</p><p>
+
+Each square of the map may contain a certain nonnegative integer amount of <strong class="asterisk">rubble</strong>. Walking through rubble will slow down your robots; you cannot move rubble. It is guaranteed that each square contains no more than 100 rubble.
+
+</p><p>
+
+Map squares may also initially contain a certain amount of <strong class="asterisk">Lead</strong>. Lead is one of the key resource types in the game, and can be collected by Miners. It is guaranteed that at least one of your Archons will initially have a Lead deposit within its vision range.
+
+</p><p>
+
+Each team will start with between 1 and 4 Archons on the map.
+
+</p><p>
+
+Each map will also have a “schedule” for Anomalies, which describes the round and type of all naturally-occurring Anomalies. Players can sense this schedule in order to vary their strategy!  
+
+</p><p>
+
+In order to prevent maps from favoring one player over another, it is guaranteed that the world is symmetric either by rotation or reflection.
+
+</p>
+<a class="target" name="metals">&nbsp;</a><a class="target" name="metals">&nbsp;</a><a class="target" name="toc7">&nbsp;</a><h1>Metals</h1>
+<p>
+
+
+The core resources are Lead (symbol: Pb) and Gold (symbol: Au). Each team has a stockpile of these metals, and constructing robots subtracts from this stockpile. Earning more resources enables you to amass a larger and more powerful army of robots.
+
+</p><p>
+
+There are Lead deposits scattered on the map, which can be collected by Miners. Whereas Lead is comparatively plentiful, Gold is not found naturally. Building a Laboratory will allow you to discover the science of alchemy; the Gold you synthesize will unlock the most powerful mechanics available in the world.
+
+</p><p>
+
+Every round, each team will gain a passive income of 2 Pb. Additionally, every 40 rounds, any square of the map containing at least 1 Pb will generate an additional 3 Pb.
+
+</p><p>
+
+Both teams start the game with 200 Pb and 0 Au. Resource costs for robot construction can be found in the in-depth section further below.
+
+</p>
+<a class="target" name="rubble">&nbsp;</a><a class="target" name="rubble">&nbsp;</a><a class="target" name="toc8">&nbsp;</a><h1>Rubble</h1>
+<p>
+
+
+Each square on the map has some non-negative integer amount of rubble. Rubble can slow down robots acting or moving onto the square.
+
+</p><p>
+
+Whenever a robot moves, attacks, or performs any other action, any cooldown it incurs is multiplied by a factor proportional to the rubble. Specifically, when incurring a base cooldown penalty of <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-2-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-3" style="width: 0.523em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.419em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.357em, 1000.42em, 2.086em, -999.997em); top: -1.924em; left: 0em;"><span class="mrow" id="MathJax-Span-4"><span class="mi" id="MathJax-Span-5" style="font-family: MathJax_Math-italic;">c</span></span><span style="display: inline-block; width: 0px; height: 1.93em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.691em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>c</mi></math></span></span><script type="math/tex" id="MathJax-Element-2">c</script>, the actual cooldown applied is <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-3-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mrow&gt;&lt;mo&gt;&amp;#x230A;&lt;/mo&gt;&lt;mrow&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mfrac&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mn&gt;10&lt;/mn&gt;&lt;/mfrac&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;mo&gt;&amp;#x22C5;&lt;/mo&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mo&gt;&amp;#x230B;&lt;/mo&gt;&lt;/mrow&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-6" style="width: 6.878em; display: inline-block;"><span style="display: inline-block; position: relative; width: 5.732em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.253em, 1005.52em, 2.815em, -999.997em); top: -2.237em; left: 0em;"><span class="mrow" id="MathJax-Span-7"><span class="mrow" id="MathJax-Span-8"><span class="mo" id="MathJax-Span-9" style="vertical-align: 0em;"><span style="font-family: MathJax_Size1;">⌊</span></span><span class="mrow" id="MathJax-Span-10"><span class="mo" id="MathJax-Span-11" style="vertical-align: 0em;"><span style="font-family: MathJax_Size1;">(</span></span><span class="mn" id="MathJax-Span-12" style="font-family: MathJax_Main;">1</span><span class="mo" id="MathJax-Span-13" style="font-family: MathJax_Main; padding-left: 0.211em;">+</span><span class="mfrac" id="MathJax-Span-14" style="padding-left: 0.211em;"><span style="display: inline-block; position: relative; width: 0.836em; height: 0px; margin-right: 0.107em; margin-left: 0.107em;"><span style="position: absolute; clip: rect(3.544em, 1000.32em, 4.169em, -999.997em); top: -4.424em; left: 50%; margin-left: -0.154em;"><span class="mi" id="MathJax-Span-15" style="font-size: 70.7%; font-family: MathJax_Math-italic;">r</span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span><span style="position: absolute; clip: rect(3.388em, 1000.68em, 4.169em, -999.997em); top: -3.643em; left: 50%; margin-left: -0.362em;"><span class="mn" id="MathJax-Span-16" style="font-size: 70.7%; font-family: MathJax_Main;">10</span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span><span style="position: absolute; clip: rect(0.836em, 1000.84em, 1.201em, -999.997em); top: -1.247em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top: 1.3px solid; width: 0.836em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.044em;"></span></span></span></span><span class="mo" id="MathJax-Span-17" style="vertical-align: 0em;"><span style="font-family: MathJax_Size1;">)</span></span></span><span class="mo" id="MathJax-Span-18" style="font-family: MathJax_Main; padding-left: 0.211em;">⋅</span><span class="mi" id="MathJax-Span-19" style="font-family: MathJax_Math-italic; padding-left: 0.211em;">c</span><span class="mo" id="MathJax-Span-20" style="vertical-align: 0em;"><span style="font-family: MathJax_Size1;">⌋</span></span></span></span><span style="display: inline-block; width: 0px; height: 2.242em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.559em; border-left: 0px solid; width: 0px; height: 1.628em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>⌊</mo><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mfrac><mi>r</mi><mn>10</mn></mfrac><mo>)</mo></mrow><mo>⋅</mo><mi>c</mi><mo>⌋</mo></mrow></math></span></span><script type="math/tex" id="MathJax-Element-3">\left\lfloor\left(1+\frac{r}{10}\right)\cdot c\right\rfloor</script> if the robot is located on a square with <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-4-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-21" style="width: 0.576em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.471em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.357em, 1000.47em, 2.086em, -999.997em); top: -1.924em; left: 0em;"><span class="mrow" id="MathJax-Span-22"><span class="mi" id="MathJax-Span-23" style="font-family: MathJax_Math-italic;">r</span></span><span style="display: inline-block; width: 0px; height: 1.93em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.691em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>r</mi></math></span></span><script type="math/tex" id="MathJax-Element-4">r</script> rubble at the conclusion of the action.
+
+</p>
+<a class="target" name="resourcereclaim">&nbsp;</a><a class="target" name="resourcereclaim">&nbsp;</a><a class="target" name="toc9">&nbsp;</a><h1>Resource reclaim</h1>
+<p>
+
+
+Whenever a robot is destroyed, 20% of its build cost is dropped on the square it last occupied. This includes its initial build cost, as well as the cost of any Mutations applied to it. Although Archons cannot be built, they have a nominal cost of 100 Au to be used in calculating the reclaim value.
+
+</p><p>
+
+Notice that resource reclaim is the only way in which Gold will enter the game map and be available for collection by Miners.
+
+</p>
+<a class="target" name="communication">&nbsp;</a><a class="target" name="communication">&nbsp;</a><a class="target" name="toc10">&nbsp;</a><h1>Communication</h1>
+<p>
+
+
+Robots can only see their immediate surroundings and are independently controlled by copies of your code, making coordination very challenging. You will be unable to share any variables between them; note that even static variables will not be shared, as each robot will receive its own copy.
+
+</p><p>
+
+To facilitate communication, each team has a shared array of 64 non-negative integers strictly less than <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-5-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mn&gt;16&lt;/mn&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-24" style="width: 1.565em; display: inline-block;"><span style="display: inline-block; position: relative; width: 1.305em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(-0.049em, 1001.3em, 1.148em, -999.997em); top: -0.987em; left: 0em;"><span class="mrow" id="MathJax-Span-25"><span class="msubsup" id="MathJax-Span-26"><span style="display: inline-block; position: relative; width: 1.305em; height: 0px;"><span style="position: absolute; clip: rect(3.18em, 1000.47em, 4.169em, -999.997em); top: -4.008em; left: 0em;"><span class="mn" id="MathJax-Span-27" style="font-family: MathJax_Main;">2</span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span><span style="position: absolute; top: -4.424em; left: 0.523em;"><span class="texatom" id="MathJax-Span-28"><span class="mrow" id="MathJax-Span-29"><span class="mn" id="MathJax-Span-30" style="font-size: 70.7%; font-family: MathJax_Main;">16</span></span></span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 0.992em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 1.191em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mn>2</mn><mrow class="MJX-TeXAtom-ORD"><mn>16</mn></mrow></msup></math></span></span><script type="math/tex" id="MathJax-Element-5">2^{16}</script>. Array values persist across turns; ie. they are not reset. Any robot can read from the array for a very small bytecode cost; they can also write to the array for a larger bytecode cost.
+
+</p>
+<a class="target" name="sensingandvision">&nbsp;</a><a class="target" name="sensingandvision">&nbsp;</a><a class="target" name="toc11">&nbsp;</a><h1>Sensing and vision</h1>
+<p>
+
+
+A robot can “sense” a square if the square is within the robot's sight range. A robot can “sense” another robot if it can sense the square that robot is occupying. Vision is <strong class="asterisk">not</strong> shared between robots, so a robot cannot necessarily sense information about robots in sight range of a different robot.
+
+</p><p>
+
+Sensing range is measured in squared units (Euclidean distance squared). The amount of rubble, Lead and Gold on a map square can only be sensed when that map square is within your sight range. You can also check whether a square within range is on the map using <code>onTheMap()</code>.
+
+</p>
+<a class="target" name="victoryandtiebreaks">&nbsp;</a><a class="target" name="victoryandtiebreaks">&nbsp;</a><a class="target" name="toc12">&nbsp;</a><h1>Victory and tiebreaks</h1>
+<p>
+
+
+To win <strong class="asterisk">Battlecode: Mutation</strong>, your primary objective is to destroy all enemy Archons. The first team whose final Archon is destroyed immediately loses (and conversely, the team who destroys the opponent's last Archon immediately wins).
+
+</p><p>
+
+Games must end in finite amounts of time. If games do not end by round 2000, the Singularity anomaly will occur, and destroy the weaker team. The following tiebreakers are applied in order to determine the stronger team.
+
+</p><p>
+
+</p><ol start="1">
+<li class="number">The team with more Archons.
+</li>
+<li class="number">The team with greater net value in Au (alive robots and unexpended reserves).
+</li>
+<li class="number">The team with greater net value in Pb (alive robots and unexpended reserves).
+</li>
+<li class="number">A quantum phenomenon occurs and selects a uniformly random team.</li></ol>
+
+<p></p>
+<a class="target" name="actionsandcooldowns">&nbsp;</a><a class="target" name="actionsandcooldowns">&nbsp;</a><a class="target" name="toc13">&nbsp;</a><h1>Actions and cooldowns</h1>
+<p>
+
+
+Robots perform actions to interact with the game world, and some cannot be performed multiple times in a single turn or in a short period of time. These actions are:
+
+</p><p>
+
+</p><ul>
+<li class="minus">Attacking. Attacking can only be done if the robot's action cooldown is less than 10 (can check with the <code>isActionReady()</code> method), and can be performed by calling the <code>attack()</code> method. This targets a particular occupied square in range, and attacks the robot on that square. This increases the robot's action cooldown as determined by the robot type and the rubble on the robot's square.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Moving. Moving can only be done if the robot's movement cooldown is less than 10 (can check with the <code>isMovementReady()</code> method) and if the ending square is unoccupied. Moving can be performed by calling the <code>move()</code> method. This moves the robot in the specified direction. If you wish to check whether a move is valid, you can use the <code>canMove()</code> method. This increases the robot's movement cooldown as determined by the robot type and the rubble on the ending square.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Mining. Miners can mine resources on adjacent squares only if the robot's action cooldown is less than 10 (can check with the <code>isActionReady()</code> method), and can be performed by calling the <code>mineLead()</code> and <code>mineGold()</code> methods. This extracts one unit of metal from the targeted square, and adds it to your team's reserve. This increases the robot's action cooldown as determined by the robot type and the rubble on the robot's square.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Constructing. Archons can construct other Droids, and Builders can construct other Buildings, but only when their action cooldown is less than 10 (can check with the <code>isActionReady()</code> method), and can be performed by calling the <code>buildRobot()</code> method. This deducts the cost of the robot from the player's stockpile, then creates one robot of the specified type in the adjacent square of the specified direction. The <code>canBuild()</code> method can be used to check whether a construction is legal. This increases the robot's action cooldown as determined by the robot type and the rubble on the robot's square.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Mutating. Builders can Mutate other Buildings, but only when the Builder's action cooldown is less than 10 (can check with the <code>isActionReady()</code> method), and can be performed by calling the <code>mutate()</code> method. This deducts the cost of the Mutation from the player's stockpile, then increases the mutation level of the specified Building. The <code>canMutation()</code> method can be used to check whether a Mutation is legal. This increases the action cooldown of the Builder, and also both cooldowns of the Building by 100.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Repairing. Archons can repair other Droids, and Builders can repair other Buildings increasing the health of the robot that they are repairing, but only when their action cooldown is less than 10 (can check with the <code>isActionReady()</code> method), and can be performed by calling the <code>repair()</code> method. The <code>canRepair()</code> method can be used to check whether the action is legal. This increases the action cooldown of the robot performing a repair as determined by the robot type and the rubble on the robot's square.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Transforming. Buildings can change modes, but only when their movement and action cooldowns are both less than 10 (can check with the <code>canTransform()</code> method), and can be performed by calling the <code>transform()</code> method. This transforms a Turret into Portable, or a Portable into a Turret, and increases both of the Building's cooldowns by 100.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Envisioning. Sages can envision an Anomaly, but only when their action cooldown is less than 10 (can check with the <code>isActionReady()</code> method), and can be performed by calling the <code>envision()</code> method. The <code>canEnvision()</code> method can be used to check whether the action is legal. This increases the robot's action cooldown as determined by the Sage robot type and the rubble on the robot's square.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Transmuting. Laboratories can transmute Lead into Gold, but only when their action cooldown is less than 10 (can check with the <code>isActionReady()</code> method), and can be performed by calling the <code>transmute()</code> method. This deducts the applicable amount of Lead from your stockpile to gain 1 Au. The <code>canTransmute()</code> method can be used to check whether there is sufficient Lead available. This increases the robot's action cooldown as determined by the Laboratory robot type and the rubble on the robot's square.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Communicating. All robots can read the team array by calling <code>readSharedArray()</code>, for standard Java bytecode costs. Robots can also update the contents of the shared array with <code>writeSharedArray()</code>, which incurs a flat bytecode cost of 100 bytecodes per write.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Disintegrating. Any robot can call the <code>disintegrate()</code> method. This immediately destroys the robot that calls it.</li></ul>
+
+<p></p><p>
+
+After every turn, the movement and action cooldowns of all robots are decremented by 10.
+
+</p>
+<a class="target" name="robotsin-depth">&nbsp;</a><a class="target" name="robotsin-depth">&nbsp;</a><a class="target" name="toc14">&nbsp;</a><h1>Robots in-depth</h1>
+<p>
+
+
+All robots can read and write to the shared team array.
+
+</p><p>
+
+Attack and vision ranges are squared Euclidean distances. A vision range of 36 means that the robot can see a <code>MapLocation</code> within a circle of radius up to 6 tiles away.
+
+</p>
+<a class="target" name="buildings">&nbsp;</a><a class="target" name="robotsin-depth/buildings">&nbsp;</a><a class="target" name="toc14.1">&nbsp;</a><h2>Buildings</h2>
+<p>
+
+
+Buildings are upgradeable robots, built by Builders. They are initially built in Prototype mode with 80% of their maximum health, and will automatically switch to Turret mode after being repaired to full health. Buildings can then switch between Turret and Portable modes by calling <code>transform()</code>, at the cost of 100 cooldown for both cooldown timers.
+
+</p><p>
+
+Buildings can also be Mutated, which upgrades their properties. Being Mutated by a Builder also incurs a cost of 100 cooldown for both of the Building's cooldown timers.
+
+</p><p>
+
+The cost of Mutating a Building depends on the Building type, as listed in the table below.
+</p><div class="table"><table class="table"><tbody><tr><th style="text-align:left">  </th><th style="text-align:left"> Archon </th><th style="text-align:left"> Laboratory </th><th style="text-align:left"> Watchtower  </th></tr>
+<tr><td style="text-align:left">  Cost </td><td style="text-align:left"> 100 Au (nominal) </td><td style="text-align:left"> 250 Pb </td><td style="text-align:left"> 180 Pb  </td></tr>
+<tr><td style="text-align:left">  Cooldown / action </td><td style="text-align:left"> 10 </td><td style="text-align:left"> 10 </td><td style="text-align:left"> 10  </td></tr>
+<tr><td style="text-align:left">  Cooldown / move </td><td style="text-align:left"> 24 </td><td style="text-align:left"> 24 </td><td style="text-align:left"> 24  </td></tr>
+<tr><td style="text-align:left">  Health mutations </td><td style="text-align:left"> 600 → 1080 → 1944 </td><td style="text-align:left"> 100 → 180 → 324 </td><td style="text-align:left"> 150 → 270 → 486  </td></tr>
+<tr><td style="text-align:left">  Attack mutations </td><td style="text-align:left"> −2 → −4 → −6 </td><td style="text-align:left"> N/A </td><td style="text-align:left"> 4 → 8 → 12  </td></tr>
+<tr><td style="text-align:left">  Action radius </td><td style="text-align:left"> (repair) 20 </td><td style="text-align:left"> N/A </td><td style="text-align:left"> 20  </td></tr>
+<tr><td style="text-align:left">  Vision radius </td><td style="text-align:left"> 34 </td><td style="text-align:left"> 53 </td><td style="text-align:left"> 34  </td></tr>
+<tr><td style="text-align:left">  Bytecode limit </td><td style="text-align:left"> 20,000 </td><td style="text-align:left"> 5,000 </td><td style="text-align:left"> 10,000  </td></tr>
+<tr><td style="text-align:left">  Level 2 mutation cost </td><td style="text-align:left"> 400 Pb </td><td style="text-align:left"> 200 Pb </td><td style="text-align:left"> 200 Pb  </td></tr>
+<tr><td style="text-align:left">  Level 3 mutation cost </td><td style="text-align:left"> 80 Au </td><td style="text-align:left"> 25 Au </td><td style="text-align:left"> 60 Au  </td></tr>
+</tbody></table></div>
+
+<p></p><p>
+
+</p><ul>
+<li class="minus">Archon: the headquarters robot type. Can construct and repair other Droids. Cannot be built.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Laboratory: the house of the alchemist. Can convert Lead into Gold. Since alchemists prefer solitude, if there are <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-6-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-31" style="width: 0.784em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.628em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.357em, 1000.63em, 2.086em, -999.997em); top: -1.924em; left: 0em;"><span class="mrow" id="MathJax-Span-32"><span class="mi" id="MathJax-Span-33" style="font-family: MathJax_Math-italic;">n</span></span><span style="display: inline-block; width: 0px; height: 1.93em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.691em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math></span></span><script type="math/tex" id="MathJax-Element-6">n</script> friendly robots within the Laboratory's vision range, 1 Au can be created by expending <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-7-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mrow&gt;&lt;mo&gt;&amp;#x230A;&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mi&gt;B&lt;/mi&gt;&lt;msup&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;mo&gt;&amp;#x230B;&lt;/mo&gt;&lt;/mrow&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-34" style="width: 6.669em; display: inline-block;"><span style="display: inline-block; position: relative; width: 5.523em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.253em, 1005.32em, 2.763em, -999.997em); top: -2.237em; left: 0em;"><span class="mrow" id="MathJax-Span-35"><span class="mrow" id="MathJax-Span-36"><span class="mo" id="MathJax-Span-37" style="vertical-align: 0em;"><span style="font-family: MathJax_Size1;">⌊</span></span><span class="mi" id="MathJax-Span-38" style="font-family: MathJax_Math-italic;">A</span><span class="mo" id="MathJax-Span-39" style="font-family: MathJax_Main; padding-left: 0.211em;">−</span><span class="mi" id="MathJax-Span-40" style="font-family: MathJax_Math-italic; padding-left: 0.211em;">B</span><span class="msubsup" id="MathJax-Span-41"><span style="display: inline-block; position: relative; width: 1.878em; height: 0px;"><span style="position: absolute; clip: rect(3.44em, 1000.42em, 4.169em, -999.997em); top: -4.008em; left: 0em;"><span class="mi" id="MathJax-Span-42" style="font-family: MathJax_Math-italic;">e</span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span><span style="position: absolute; top: -4.372em; left: 0.471em;"><span class="texatom" id="MathJax-Span-43"><span class="mrow" id="MathJax-Span-44"><span class="mo" id="MathJax-Span-45" style="font-size: 70.7%; font-family: MathJax_Main;">−</span><span class="mi" id="MathJax-Span-46" style="font-size: 70.7%; font-family: MathJax_Math-italic;">k</span><span class="mi" id="MathJax-Span-47" style="font-size: 70.7%; font-family: MathJax_Math-italic;">n</span></span></span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span></span></span><span class="mo" id="MathJax-Span-48" style="vertical-align: 0em;"><span style="font-family: MathJax_Size1;">⌋</span></span></span></span><span style="display: inline-block; width: 0px; height: 2.242em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.497em; border-left: 0px solid; width: 0px; height: 1.566em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>⌊</mo><mi>A</mi><mo>−</mo><mi>B</mi><msup><mi>e</mi><mrow class="MJX-TeXAtom-ORD"><mo>−</mo><mi>k</mi><mi>n</mi></mrow></msup><mo>⌋</mo></mrow></math></span></span><script type="math/tex" id="MathJax-Element-7">\left\lfloor A-Be^{-kn}\right\rfloor</script> Pb, where <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-8-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;20&lt;/mn&gt;&lt;mo&gt;,&lt;/mo&gt;&lt;mi&gt;B&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;15&lt;/mn&gt;&lt;mo&gt;,&lt;/mo&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0.02&lt;/mn&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-49" style="width: 12.711em; display: inline-block;"><span style="display: inline-block; position: relative; width: 10.576em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.253em, 1010.52em, 2.503em, -999.997em); top: -2.133em; left: 0em;"><span class="mrow" id="MathJax-Span-50"><span class="mi" id="MathJax-Span-51" style="font-family: MathJax_Math-italic;">A</span><span class="mo" id="MathJax-Span-52" style="font-family: MathJax_Main; padding-left: 0.263em;">=</span><span class="mn" id="MathJax-Span-53" style="font-family: MathJax_Main; padding-left: 0.263em;">20</span><span class="mo" id="MathJax-Span-54" style="font-family: MathJax_Main;">,</span><span class="mi" id="MathJax-Span-55" style="font-family: MathJax_Math-italic; padding-left: 0.159em;">B</span><span class="mo" id="MathJax-Span-56" style="font-family: MathJax_Main; padding-left: 0.263em;">=</span><span class="mn" id="MathJax-Span-57" style="font-family: MathJax_Main; padding-left: 0.263em;">15</span><span class="mo" id="MathJax-Span-58" style="font-family: MathJax_Main;">,</span><span class="mi" id="MathJax-Span-59" style="font-family: MathJax_Math-italic; padding-left: 0.159em;">k</span><span class="mo" id="MathJax-Span-60" style="font-family: MathJax_Main; padding-left: 0.263em;">=</span><span class="mn" id="MathJax-Span-61" style="font-family: MathJax_Main; padding-left: 0.263em;">0.02</span></span><span style="display: inline-block; width: 0px; height: 2.138em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.309em; border-left: 0px solid; width: 0px; height: 1.191em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi><mo>=</mo><mn>20</mn><mo>,</mo><mi>B</mi><mo>=</mo><mn>15</mn><mo>,</mo><mi>k</mi><mo>=</mo><mn>0.02</mn></math></span></span><script type="math/tex" id="MathJax-Element-8">A=20, B=15, k=0.02</script>. This formula can be accessed with the method <code>getTransmutationRate()</code>.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Watchtower: a defensive reinforcement. Can attack enemy robots that stray within the attack radius.</li></ul>
+
+<p></p>
+<a class="target" name="droids">&nbsp;</a><a class="target" name="robotsin-depth/droids">&nbsp;</a><a class="target" name="toc14.2">&nbsp;</a><h2>Droids</h2>
+<p>
+
+
+Droids are mobile robots, built by Archons.
+</p><div class="table"><table class="table"><tbody><tr><th style="text-align:left">  </th><th style="text-align:left"> Miner </th><th style="text-align:left"> Builder </th><th style="text-align:left"> Soldier </th><th style="text-align:left"> Sage  </th></tr>
+<tr><td style="text-align:left">  Cost </td><td style="text-align:left"> 50 Pb </td><td style="text-align:left"> 40 Pb </td><td style="text-align:left"> 75 Pb </td><td style="text-align:left"> 20 Au  </td></tr>
+<tr><td style="text-align:left">  Cooldown / action </td><td style="text-align:left"> 2 </td><td style="text-align:left"> 10 </td><td style="text-align:left"> 10 </td><td style="text-align:left"> 200  </td></tr>
+<tr><td style="text-align:left">  Cooldown / move </td><td style="text-align:left"> 20 </td><td style="text-align:left"> 20 </td><td style="text-align:left"> 16 </td><td style="text-align:left"> 25  </td></tr>
+<tr><td style="text-align:left">  Health </td><td style="text-align:left"> 40 </td><td style="text-align:left"> 30 </td><td style="text-align:left"> 50 </td><td style="text-align:left"> 100  </td></tr>
+<tr><td style="text-align:left">  Attack </td><td style="text-align:left"> N/A </td><td style="text-align:left"> −1 </td><td style="text-align:left"> 3 </td><td style="text-align:left"> 45  </td></tr>
+<tr><td style="text-align:left">  Action radius </td><td style="text-align:left"> (mine) 2 </td><td style="text-align:left"> (repair) 5 </td><td style="text-align:left"> 13 </td><td style="text-align:left"> 20  </td></tr>
+<tr><td style="text-align:left">  Vision radius </td><td style="text-align:left"> 20 </td><td style="text-align:left"> 20 </td><td style="text-align:left"> 20 </td><td style="text-align:left"> 34  </td></tr>
+<tr><td style="text-align:left">  Bytecode limit </td><td style="text-align:left"> 7,500 </td><td style="text-align:left"> 7,500 </td><td style="text-align:left"> 10,000 </td><td style="text-align:left"> 10,000  </td></tr>
+</tbody></table></div>
+
+<p></p><p>
+
+</p><ul>
+<li class="minus">Miners: the resource collecting robot. Can mine squares for Lead and Gold.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Builders: the construction robot. Can build new Prototypes, and repair existing Buildings.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Soldiers: the general-purpose attack robot. Can attack nearby robots.
+
+<p></p><p>
+
+</p></li>
+<li class="minus">Sage: the bringer of Anomalies. Sages are able to produce concentrated attacks, as well as the following Anomalies, but at a very slow rate:
+<ul>
+    <li class="minus">Abyss: 20% of resources in all squares within action range are lost.
+</li>
+    <li class="minus">Charge: The air begins to conduct electricity, and all enemy Droids within action range lose health equal to 10% of their maximum health.
+</li>
+    <li class="minus">Fury: A searing solar flare erupts from the sun. All buildings within action range in turret mode have 10% of their max health burned off.
+</li>
+    <li class="minus">Vortex and Singularity are not available to Sages.</li></ul></li></ul>
+
+<p></p>
+<a class="target" name="bytecodelimits">&nbsp;</a><a class="target" name="bytecodelimits">&nbsp;</a><a class="target" name="toc15">&nbsp;</a><h1>Bytecode limits</h1>
+<p>
+
+
+Robots are also very limited in the amount of computation they are allowed to perform per turn. Bytecodes are a convenient measure of computation in languages like Java, where one Java bytecode corresponds roughly to one basic operation such as “subtract” or “get field”, and a single line of code generally contains several bytecodes (for details see <a href="http://en.wikipedia.org/wiki/Java_bytecode">here</a>). Because bytecodes are a feature of the compiled code itself, the same program will always compile to the same bytecodes and thus take the same amount of computation on the same inputs. This is great, because it allows us to avoid using time as a measure of computation, which leads to problems such as nondeterminism. With bytecode cutoffs, re-running the same match between the same bots produces exactly the same results - a feature you will find very useful for debugging.
+
+</p><p>
+
+Every round each robot sequentially takes its turn. If a robot attempts to exceed its bytecode limit (usually unexpectedly, if you have too big of a loop or something), its computation will be paused and then resumed at exactly that point next turn. The code will resume running just fine, but this can cause problems if, for example, you check if a tile is empty, then the robot is cut off and the others take their turns, and then you attempt to move into a now-occupied tile. Instead, use the <code>Clock.yield()</code> function to end a robot's turn. This will pause computation where you choose, and resume on the next line next turn.
+
+</p><p>
+
+The per-turn bytecode limits for various robots are as follows:
+
+</p><p>
+
+</p><ul>
+<li class="minus">Archon: 20,000
+</li>
+<li class="minus">Builder, Miner: 7,500
+</li>
+<li class="minus">Soldier, Sage: 10,000
+</li>
+<li class="minus">Watchtower: 10,000
+</li>
+<li class="minus">Laboratory: 5,000</li></ul>
+
+<p></p><p>
+
+Some standard functions such as the math library and sensing functions have fixed bytecode costs, available <a href="https://github.com/battlecode/battlecode22/blob/main/engine/src/main/battlecode/instrumenter/bytecode/resources/MethodCosts.txt">here</a>. More details on this at the end of the spec.
+
+</p>
+<a class="target" name="appendix:otherresourcesandutilities">&nbsp;</a><a class="target" name="appendix:otherresourcesandutilities">&nbsp;</a><a class="target" name="toc16">&nbsp;</a><h1>Appendix: Other resources and utilities</h1>
+
+<a class="target" name="**sampleplayer**">&nbsp;</a><a class="target" name="appendix:otherresourcesandutilities/sampleplayer">&nbsp;</a><a class="target" name="toc16.1">&nbsp;</a><h2><strong class="asterisk">Sample player</strong></h2>
+<p>
+
+
+examplefuncsplayer, a simple player which performs various game actions, is included with battlecode. It includes helpful comments and is a template you can use to see what <code>RobotPlayer</code> files should look like.
+
+</p><p>
+
+If you are interested, you may find the full game engine implementation <a href="https://github.com/battlecode/battlecode22/tree/main/engine">here</a>. This is not at all required, but may be helpful if you are curious about the engine's implementation specifics.
+
+</p>
+<a class="target" name="**debugging**">&nbsp;</a><a class="target" name="appendix:otherresourcesandutilities/debugging">&nbsp;</a><a class="target" name="toc16.2">&nbsp;</a><h2><strong class="asterisk">Debugging</strong></h2>
+<p>
+
+
+Debugging is extremely important. See the debugging tips to learn about our useful debug tools.
+
+</p>
+<a class="target" name="**monitoring**">&nbsp;</a><a class="target" name="appendix:otherresourcesandutilities/monitoring">&nbsp;</a><a class="target" name="toc16.3">&nbsp;</a><h2><strong class="asterisk">Monitoring</strong></h2>
+<p>
+
+
+The <code>Clock</code> class provides a way to identify the current round (<code>rc.getRoundNum()</code>), and how many bytecodes have been executed during the current round (<code>Clock.getBytecodeNum()</code>).
+
+</p>
+<a class="target" name="**gameactionexceptions**">&nbsp;</a><a class="target" name="appendix:otherresourcesandutilities/gameactionexceptions">&nbsp;</a><a class="target" name="toc16.4">&nbsp;</a><h2><strong class="asterisk">GameActionExceptions</strong></h2>
+<p>
+
+
+<code>GameActionException</code>s are thrown when something cannot be done. It is often the result of illegal actions such as moving onto another robot, or an unexpected round change in your code. Thus, you must write your player defensively and handle <code>GameActionException</code>s judiciously. You should also be prepared for any ability to fail and make sure that this has as little effect as possible on the control flow of your program.
+
+</p><p>
+
+Throwing any <code>Exception</code>s cause a bytecode penalty of 500 bytecodes. Unhandled exceptions may paralyze your robot.
+
+</p>
+<a class="target" name="**completedocumentation**">&nbsp;</a><a class="target" name="appendix:otherresourcesandutilities/completedocumentation">&nbsp;</a><a class="target" name="toc16.5">&nbsp;</a><h2><strong class="asterisk">Complete documentation</strong></h2>
+<p>
+
+
+Every function you could possibly use to interact with the game can be found in our javadocs.
+
+</p>
+<a class="target" name="appendix:otherrestrictions">&nbsp;</a><a class="target" name="appendix:otherrestrictions">&nbsp;</a><a class="target" name="toc17">&nbsp;</a><h1>Appendix: Other restrictions</h1>
+
+<a class="target" name="**javalanguageusage**">&nbsp;</a><a class="target" name="appendix:otherrestrictions/javalanguageusage">&nbsp;</a><a class="target" name="toc17.1">&nbsp;</a><h2><strong class="asterisk">Java language usage</strong></h2>
+<p>
+
+
+Players may use classes from any of the packages listed in <code>AllowedPackages.txt</code>, except for classes listed in <code>DisallowedPackages.txt</code>. These files can be found here.
+
+</p><p>
+
+Furthermore, the following restrictions apply:
+
+</p><p>
+
+<code>Object.wait</code>, <code>Object.notify</code>, <code>Object.notifyAll</code>, <code>Class.forName</code>, and <code>String.intern</code> are not allowed. <code>java.lang.System</code> only supports <code>out</code>, <code>arraycopy</code>, and <code>getProperty</code>. Furthermore, <code>getProperty</code> can only be used to get properties with names beginning with <code>"bc.testing."</code>. <code>java.io.PrintStream</code> may not be used to open files.
+
+</p><p>
+
+Note that violating any of the above restrictions will cause the robots to explode when run, even if the source files compile without problems.
+
+</p>
+<a class="target" name="**memoryusage**">&nbsp;</a><a class="target" name="appendix:otherrestrictions/memoryusage">&nbsp;</a><a class="target" name="toc17.2">&nbsp;</a><h2><strong class="asterisk">Memory usage</strong></h2>
+<p>
+
+
+Robots must keep their memory usage reasonable. If a robot uses more than 8 Mb of heap space during a tournament or scrimmage match, the robot may explode.
+
+</p>
+<a class="target" name="**moreinformationonbytecodecosts**">&nbsp;</a><a class="target" name="appendix:otherrestrictions/moreinformationonbytecodecosts">&nbsp;</a><a class="target" name="toc17.3">&nbsp;</a><h2><strong class="asterisk">More information on bytecode costs</strong></h2>
+<p>
+
+
+Classes in <code>java.util</code>, <code>java.math</code>, and scala and their subpackages are bytecode counted as if they were your own code. The following functions in <code>java.lang</code> are also bytecode counted as if they were your own code.
+
+</p><p>
+
+`Math.random 
+ StrictMath.random 
+ String.matches 
+ String.replaceAll 
+ String.replaceFirst 
+ String.split`
+
+</p><p>
+
+The function <code>System.arraycopy</code> costs one bytecode for each element copied. All other functions have a fixed bytecode cost. These costs are listed in the <a href="https://github.com/battlecode/battlecode22/blob/main/engine/src/main/battlecode/instrumenter/bytecode/resources/MethodCosts.txt"><code>MethodCosts.txt</code> file</a>. Methods not listed are free. The bytecode costs of <code>battlecode.common</code> functions are also listed in the javadoc.
+
+</p><p>
+
+Basic operations like integer comparison and array indexing cost small numbers of bytecodes each.
+
+</p><p>
+
+Bytecodes relating to the creation of arrays (specifically <code>NEWARRAY</code>, <code>ANEWARRAY</code>, and <code>MULTIANEWARRAY</code>; see <a href="https://en.wikipedia.org/wiki/Java_bytecode_instruction_listings">here</a> for reference) have an effective cost greater than a single bytecode. This is because these instructions, although they are represented as a single bytecode, can be vastly more expensive than other instructions in terms of computational cost. To remedy this, these instructions have a bytecode cost equal to the total length of the instantiated array. Note that this should have minimal impact on the typical team, and is only intended to prevent teams from repeatedly instantiating excessively large arrays.
+
+</p>
+<a class="target" name="appendix:lingeringquestionsandclarifications">&nbsp;</a><a class="target" name="appendix:lingeringquestionsandclarifications">&nbsp;</a><a class="target" name="toc18">&nbsp;</a><h1>Appendix: Lingering questions and clarifications</h1>
+<p>
+
+
+If something is unclear, direct your questions to our Discord where other people may have the same question. We'll update this spec as the competition progresses.
+
+</p>
+<a class="target" name="appendix:changelog">&nbsp;</a><a class="target" name="appendix:changelog">&nbsp;</a><a class="target" name="toc19">&nbsp;</a><h1>Appendix: Changelog</h1>
+<p>
+
+
+
+</p><ul>
+<li class="minus">Version 2022.1.0.2 (January 16, 2022)
+<ul>
+  <li class="minus">Engine
+<ul>
+    <li class="minus">Trigger tiebreakers if all Archons are destroyed simultaneously during Fury.
+</li>
+    <li class="minus">Add some map validation to main server (thanks @stefangimmillaro!)
+
+<p></p><p>
+
+</p></li></ul>
+</li></ul>
+</li><li class="minus">Version 2022.1.0.1 (January 12, 2022)
+<ul>
+  <li class="minus">Engine
+<ul>
+    <li class="minus">Remove initial cooldown for all newly built robots
+</li>
+    <li class="minus">Fix bug in lead and gold sensing functions
+
+<p></p><p>
+
+</p></li></ul>
+</li></ul>
+</li><li class="minus">Version 2022.1.0.0 (January 11, 2022)
+<ul>
+  <li class="minus">Breaking changes: Sprint I Balancing changes
+<ul>
+    <li class="minus">Archons:
+<ul>
+      <li class="minus">Decrease nominal worth to 100 Au
+</li>
+      <li class="minus">Decrease level 2 Mutation cost to 400 Pb
+</li>
+      <li class="minus">Decrease level 3 Mutation cost to 80 Au
+</li>
+      <li class="minus">Change mutation health to 600 → 1080 → 1944
+</li>
+      <li class="minus">Change mutation repair to 2 → 4 → 6
+</li></ul>
+    </li><li class="minus">Watchtowers:
+<ul>
+      <li class="minus">Decrease level 2 Mutation cost to 200 Pb
+</li>
+      <li class="minus">Decrease level 3 Mutation cost to 60 Au
+</li>
+      <li class="minus">Charge mutation health to 150 → 270 → 486
+</li>
+      <li class="minus">Change mutation damage to 4 → 8 → 12
+</li></ul>
+    </li><li class="minus">Laboratories:
+<ul>
+      <li class="minus">Decrease build cost to 250 Pb
+</li>
+      <li class="minus">Decrease level 2 Mutation cost to 200 Pb
+</li>
+      <li class="minus">Decrease level 3 Mutation cost to 25 Au
+</li>
+      <li class="minus">Change mutation health to 100 → 180 → 324
+</li></ul>
+    </li><li class="minus">Sages:
+<ul>
+      <li class="minus">Decrease build cost to 20 Au
+</li>
+      <li class="minus">Increase action radius to 20
+</li>
+      <li class="minus">Increase vision radius to 34
+</li></ul>
+    </li><li class="minus">Lead regeneration:
+<ul>
+      <li class="minus">Decrease rate to 3 Pb every 40 turns
+</li></ul>
+</li></ul>
+  </li><li class="minus">Sprint maps released
+
+<p></p><p>
+
+</p></li></ul>
+</li><li class="minus">Version 2022.0.3.1 (January 10, 2022)
+<ul>
+  <li class="minus">Client
+<ul>
+    <li class="minus">Fix robot selection on (0, 0)
+</li>
+    <li class="minus">Fix gold income
+</li>
+    <li class="minus">Improvements to runner team selection (thanks @jmerle!)
+</li></ul>
+  </li><li class="minus">Other
+<ul>
+    <li class="minus">Improvements to Javadoc deploy script
+
+<p></p><p>
+
+</p></li></ul>
+</li></ul>
+</li><li class="minus">Version 2022.0.3.0 (January 9, 2022)
+<ul>
+  <li class="minus">Engine
+<ul>
+    <li class="minus">(New feature) Add overloads for sensing nearby locations with metals
+</li>
+    <li class="minus">Do not dump debug map information at start of match
+</li></ul>
+  </li><li class="minus">Client
+<ul>
+    <li class="minus">Track HP change on mutations and fix DP display
+</li>
+    <li class="minus">Running averages for lead and gold income
+</li></ul>
+  </li><li class="minus">Other
+<ul>
+    <li class="minus">Javadocs are 2022, not 2017
+
+<p></p><p>
+
+</p></li></ul>
+</li></ul>
+</li><li class="minus">Version 2022.0.2.0 (January 5, 2022)
+<ul>
+  <li class="minus">Engine
+<ul>
+    <li class="minus">(New feature) Add <code>rc.senseNearbyLocationsWithLead</code> and <code>rc.senseNearbyLocationsWithGold</code>
+</li>
+    <li class="minus">Make passive Lead increase occur after Anomalies are processed
+</li></ul>
+  </li><li class="minus">Client
+<ul>
+    <li class="minus">Fix portable Archon display
+</li>
+    <li class="minus">Fix mutation tracking
+</li>
+    <li class="minus">Update help text
+</li>
+    <li class="minus">Fix Vortex anomaly rendering
+</li></ul>
+  </li><li class="minus">Other
+<ul>
+    <li class="minus">Improvements to release scripts
+
+<p></p><p>
+
+</p></li></ul>
+</li></ul>
+</li><li class="minus">Version 2022.0.1.1 (January 4, 2022)
+<ul>
+  <li class="minus">Specs
+<ul>
+    <li class="minus">Clarify that Archons are not guaranteed to have ID at least 10,000
+</li>
+    <li class="minus">Update various URLs
+</li></ul>
+  </li><li class="minus">Engine
+<ul>
+    <li class="minus">Fix Archon damage to always be negative (ie. repair)
+</li>
+    <li class="minus">Fix maximum value for communication array to actually be <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-9-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mn&gt;16&lt;/mn&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-62" style="width: 3.648em; display: inline-block;"><span style="display: inline-block; position: relative; width: 3.023em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.096em, 1002.97em, 2.398em, -999.997em); top: -2.133em; left: 0em;"><span class="mrow" id="MathJax-Span-63"><span class="msubsup" id="MathJax-Span-64"><span style="display: inline-block; position: relative; width: 1.305em; height: 0px;"><span style="position: absolute; clip: rect(3.18em, 1000.47em, 4.169em, -999.997em); top: -4.008em; left: 0em;"><span class="mn" id="MathJax-Span-65" style="font-family: MathJax_Main;">2</span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span><span style="position: absolute; top: -4.424em; left: 0.523em;"><span class="texatom" id="MathJax-Span-66"><span class="mrow" id="MathJax-Span-67"><span class="mn" id="MathJax-Span-68" style="font-size: 70.7%; font-family: MathJax_Main;">16</span></span></span><span style="display: inline-block; width: 0px; height: 4.013em;"></span></span></span></span><span class="mo" id="MathJax-Span-69" style="font-family: MathJax_Main; padding-left: 0.211em;">−</span><span class="mn" id="MathJax-Span-70" style="font-family: MathJax_Main; padding-left: 0.211em;">1</span></span><span style="display: inline-block; width: 0px; height: 2.138em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.184em; border-left: 0px solid; width: 0px; height: 1.253em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mn>2</mn><mrow class="MJX-TeXAtom-ORD"><mn>16</mn></mrow></msup><mo>−</mo><mn>1</mn></math></span></span><script type="math/tex" id="MathJax-Element-9">2^{16}-1</script>
+
+<p></p><p>
+
+</p></li></ul>
+</li></ul>
+</li><li class="minus">Version 2022.0.1.0 (January 3, 2022)
+<ul>
+  <li class="minus">Initial release</li></ul></li></ul>
+
+<p></p><p>
+
+<script>markdeepOptions={tocStyle:'long'};</script>
+<script src="./specs_sprint1-2.md_files/markdeep.min.js.download" charset="utf-8"></script></p></span><div id="mdContextMenu" style="visibility:hidden"></div><div class="markdeepFooter"><i>formatted by <a href="https://casual-effects.com/markdeep" style="color:#999">Markdeep&nbsp;1.12&nbsp;&nbsp;</a></i><div style="display:inline-block;font-size:13px;font-family:&#39;Times New Roman&#39;,serif;vertical-align:middle;transform:translate(-3px,-1px)rotate(135deg);">✒</div></div><div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; min-width: 0px; max-width: none; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: MathJax_Size1, sans-serif;"></div></div></body></html>

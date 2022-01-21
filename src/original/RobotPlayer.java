@@ -9,19 +9,20 @@ public strictfp class RobotPlayer {
     	
         RobotPlayer.rc = rc;
         Info.initialize(rc);
+        Comms.initialize();
 
         while (true) {
             try {
             	Info.update();
-            	Comms.recv();
+            	Comms.update();
 //            	if (rc.getRoundNum()>80) {rc.resign();}
         		switch (rc.getType()) {
         		case ARCHON: Archon.act(); break;
         		case BUILDER: Builder.act(); break;
         		case LABORATORY: Laboratory.act(); break;
         		case MINER: Miner.act(); break;
-        		case SAGE: Sage.act(); break;
-        		case SOLDIER: Soldier.act(); break;
+        		case SAGE: Sage.post_comms_update(); Sage.act(); break;
+        		case SOLDIER: Soldier.post_comms_update(); Soldier.act(); break;
         		case WATCHTOWER: Watchtower.act(); break;
         		}
             	
@@ -45,7 +46,9 @@ public strictfp class RobotPlayer {
 //                Clock.yield();
 //                Clock.yield();
 //                rc.resign();
-//                throw e;
+//                if (Info.type == RobotType.SOLDIER) {
+//                	throw e;
+//                }
             }
         }
     }

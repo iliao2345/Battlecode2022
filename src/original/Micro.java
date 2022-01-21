@@ -34,11 +34,13 @@ public class Micro {
 //	public static int attacker_last_seen_round = Integer.MIN_VALUE;
 //	public static int rounds_since_battle = Integer.MAX_VALUE;
 //	public static boolean retreat_signal = false;
-	public static boolean chase_miners = false;
+	public static boolean chase_enemy_econ_units = false;
 	public static boolean outnumbered = false;
 	public static int retreat_timer = 0;
 	public static boolean charging = false;
 	public static int max_enemy_seen = 0;
+	public static boolean winning_1v1_soldier = false;
+	public static boolean losing_1v1_soldier = false;
 
 	public static void update() throws GameActionException {
 //		attacker_last_seen_round = Info.n_enemy_attackers>0? Info.round_num : attacker_last_seen_round;
@@ -59,12 +61,14 @@ public class Micro {
 //			average_enemy_shot_rate += 1/Math.sqrt(9) * (1/enemy_rubble_plus_10 - average_enemy_shot_rate);
 //		}
 		
-		chase_miners = Info.n_enemy_miners == Info.enemy_robots.length;
+		chase_enemy_econ_units = Info.n_enemy_attackers == 0 && Info.n_enemy_archons == 0;
 //		outnumbered = Info.n_enemy_attackers > Info.n_friendly_attackers + 1;
 //		charging = Info.n_enemy_attackers*5 < Info.n_friendly_attackers;
 //		max_enemy_seen = Math.max(Info.n_enemy_attackers, max_enemy_seen);
 //		max_enemy_seen = (Info.n_friendly_attackers+1 >= max_enemy_seen)? 0 : max_enemy_seen;
-		retreat_timer = (Info.n_enemy_attackers > Info.n_friendly_attackers+1)? 10 : Math.max(0, retreat_timer-1);
+		losing_1v1_soldier = Info.n_enemy_soldiers >= 1 && Info.n_friendly_soldiers == 0 && Info.enemy_soldiers[0].health > Info.health && Info.n_enemy_archons >= Info.n_friendly_archons;
+		winning_1v1_soldier = Info.n_enemy_attackers == 1 && Info.n_enemy_soldiers == 1 && Info.enemy_soldiers[0].health < Info.health && Info.n_enemy_archons <= Info.n_friendly_archons;
+		retreat_timer = (Info.n_enemy_attackers > Info.n_friendly_attackers+1 || losing_1v1_soldier)? 2 : Math.max(0, retreat_timer-1);
 		outnumbered = retreat_timer > 0;
 		
 //		rubble_sample_size *= RUBBLE_SAMPLE_DECAY;
@@ -172,12 +176,12 @@ public class Micro {
 		if (Info.enemy_robots.length > 0) {
 			boolean[][] illegal_tiles = new boolean[3][3];
 			double[][] values;
-//			if (Info.n_enemy_attackers > 3) {
+			if (Info.n_enemy_attackers > 5) {
 				values = battle_tile_values_sparse();
-//			}
-//			else {
-//				values = battle_tile_values_sparser();
-//			}
+			}
+			else {
+				values = battle_tile_values_sparser();
+			}
 			double min_value = Double.MAX_VALUE;
 			for (int dx=2; --dx>=-1;) {
 				for (int dy=2; --dy>=-1;) {
@@ -228,10 +232,10 @@ public class Micro {
 				int n_enemy_shootable = rc.senseNearbyRobots(testloc, Info.ACTION_DIST2, Info.enemy).length;
 				int n_enemy_visible = rc.senseNearbyRobots(testloc, Info.VISION_DIST2, Info.enemy).length;
 //				if ((enemy_shootable_now || outnumbered) && !chase_miners) {
-				if (enemy_shootable_now && !chase_miners) {
-					values[dir.dx+1][dir.dy+1] = +1000*n_enemy_shootable+n_enemy_visible + 2000*(Math.floor((10+rc.senseRubble(testloc)/10.)*RobotType.SOLDIER.actionCooldown)) + (Comms.attacker_seen_before? -0.0001*(Comms.closest_attacker_dx-dir.dx)*(Comms.closest_attacker_dx-dir.dx)+(Comms.closest_attacker_dy-dir.dy)*(Comms.closest_attacker_dy-dir.dy) : 0);
+				if (enemy_shootable_now) {
+					values[dir.dx+1][dir.dy+1] = +1000*n_enemy_shootable+n_enemy_visible + 2000*(Math.floor((1+rc.senseRubble(testloc)/10.)*RobotType.SOLDIER.actionCooldown)) + (Comms.attacker_seen_before? -0.0001*(Comms.closest_attacker_dx-dir.dx)*(Comms.closest_attacker_dx-dir.dx)+(Comms.closest_attacker_dy-dir.dy)*(Comms.closest_attacker_dy-dir.dy) : 0);
 				}
-				else if (!chase_miners){
+				else {
 					double neg_approx_distance = 0;
 					if (Comms.attacker_seen_before) {
 						neg_approx_distance = Comms.closest_attacker_dx/Comms.closest_attacker_dist*dir.dx + Comms.closest_attacker_dy/Comms.closest_attacker_dist*dir.dy;
@@ -239,14 +243,16 @@ public class Micro {
 					else if (Comms.enemy_seen_before) {
 						neg_approx_distance = Comms.closest_enemy_dx/Comms.closest_enemy_dist*dir.dx + Comms.closest_enemy_dy/Comms.closest_enemy_dist*dir.dy;
 					}
-					values[dir.dx+1][dir.dy+1] = ((n_enemy_shootable > 0)? n_enemy_shootable : 1000) + neg_approx_distance + 1000*(10+rc.senseRubble(testloc)/10.);
+					values[dir.dx+1][dir.dy+1] = ((n_enemy_shootable > 0)? n_enemy_shootable : 1000) + neg_approx_distance + 1000*(1+rc.senseRubble(testloc)/10.);
 				}
-				else {
-					double neg_approx_distance = 0;
-					if (Comms.enemy_seen_before) {
-						neg_approx_distance = Comms.closest_enemy_dx/Comms.closest_enemy_dist*dir.dx + Comms.closest_enemy_dy/Comms.closest_enemy_dist*dir.dy;
+				if (Soldier.healing) {
+					boolean within_healing_range = false;
+					for (int i=Info.n_friendly_archons; --i>=0;) {
+						if (Info.friendly_archons[i].location.isWithinDistanceSquared(Info.loc, RobotType.ARCHON.actionRadiusSquared)) {
+							within_healing_range = true;
+						}
 					}
-					values[dir.dx+1][dir.dy+1] = (1000-n_enemy_shootable) - neg_approx_distance + 1000*(10+rc.senseRubble(testloc)/10.);
+					values[dir.dx+1][dir.dy+1] += within_healing_range? 0 : 100;
 				}
 			}
 			else {
@@ -258,33 +264,81 @@ public class Micro {
 	}
 	
 	public static double[][] battle_tile_values_sparser() throws GameActionException {
-		
-		int n_enemy_shootable_now = rc.senseNearbyRobots(Info.loc, Info.ACTION_DIST2, Info.enemy).length;
-		boolean enemy_shootable_now = n_enemy_shootable_now > 0;
-		double[][] values = new double[3][3];
-		RobotInfo[] enemy_attackers = new RobotInfo[Info.n_enemy_attackers];
-		boolean[] attacker_occupied = new boolean[Info.n_enemy_attackers];
-		int[] attacker_action_r2 = new int[Info.n_enemy_attackers];
-		for (int i=Info.n_enemy_attackers; --i>=0;) {
-			RobotInfo robot = Info.get_enemy_attacker(i);
-			enemy_attackers[i] = robot;
-			attacker_action_r2[i] = (robot.type==RobotType.WATCHTOWER)? 20 : 25; 
-			attacker_occupied[i] = rc.senseNearbyRobots(robot.location, attacker_action_r2[i], Info.friendly).length > 0;
+	
+		boolean[] soldiers_preoccupied = new boolean[Info.n_enemy_soldiers];
+		if (Info.n_friendly_soldiers < 5) {
+			for (int i=Info.n_enemy_soldiers; --i>=0;) {
+				RobotInfo enemy = Info.enemy_soldiers[i];
+				for (int j=Info.n_friendly_soldiers; --j>=0;) {
+					RobotInfo friend = Info.friendly_soldiers[j];
+					if (friend.location.isWithinDistanceSquared(enemy.location, 20)) {
+						soldiers_preoccupied[i] = true;
+						break;
+					}
+				}
+			}
 		}
+		
+		boolean enemy_shootable_now = false;
+		for (int i=Info.n_enemy_soldiers; --i>=0;) {
+			enemy_shootable_now = enemy_shootable_now || Info.loc.isWithinDistanceSquared(Info.enemy_soldiers[i].location, Info.ACTION_DIST2);
+		}
+		for (int i=Info.n_enemy_watchtowers; --i>=0;) {
+			enemy_shootable_now = enemy_shootable_now || Info.loc.isWithinDistanceSquared(Info.enemy_watchtowers[i].location, Info.ACTION_DIST2);
+		}
+		for (int i=Info.n_enemy_sages; --i>=0;) {
+			enemy_shootable_now = enemy_shootable_now || Info.loc.isWithinDistanceSquared(Info.enemy_sages[i].location, Info.ACTION_DIST2);
+		}
+		if (!Info.action_ready && !enemy_shootable_now) {
+			double[][] values = new double[3][3];
+			values[1][1] = -1;
+			return values;
+		}
+		double[][] values = new double[3][3];
 		for (Direction dir:Direction.allDirections()) {
 			MapLocation testloc = Info.loc.add(dir);
-			if (rc.onTheMap(testloc)) {
-				boolean cannot_shoot_enemy_from_testloc = true;
-				for (int i=Info.n_enemy_attackers; --i>=0;) {
-					if (!attacker_occupied[i]) {
-						values[dir.dx+1][dir.dy+1] += Info.loc.add(dir).isWithinDistanceSquared(enemy_attackers[i].location, attacker_action_r2[i])? 100 : 0;
-						values[dir.dx+1][dir.dy+1] += Info.loc.add(dir).isWithinDistanceSquared(enemy_attackers[i].location, 20)? 1 : 0;
+			if (rc.onTheMap(testloc) && !rc.isLocationOccupied(testloc)) {
+				double n_enemy_shootable = rc.senseNearbyRobots(testloc, Info.ACTION_DIST2, Info.enemy).length;
+				double n_enemy_visible = rc.senseNearbyRobots(testloc, Info.VISION_DIST2, Info.enemy).length;
+				for (int i=Info.n_enemy_soldiers; --i>=0;) {
+					if (!soldiers_preoccupied[i]) {
+						n_enemy_shootable = n_enemy_shootable + (testloc.isWithinDistanceSquared(Info.enemy_soldiers[i].location, RobotType.SOLDIER.actionRadiusSquared)? 1 : 0);
+						n_enemy_visible = n_enemy_visible + (testloc.isWithinDistanceSquared(Info.enemy_soldiers[i].location, RobotType.SOLDIER.actionRadiusSquared)? 1 : 0);
 					}
-					cannot_shoot_enemy_from_testloc = cannot_shoot_enemy_from_testloc && !Info.loc.add(dir).isWithinDistanceSquared(enemy_attackers[i].location, Info.ACTION_DIST2);
+					else {
+						n_enemy_shootable = n_enemy_shootable + (testloc.isWithinDistanceSquared(Info.enemy_soldiers[i].location, RobotType.SOLDIER.actionRadiusSquared)? 0.9 : 0);
+						n_enemy_visible = n_enemy_visible + (testloc.isWithinDistanceSquared(Info.enemy_soldiers[i].location, RobotType.SOLDIER.actionRadiusSquared)? 0.9 : 0);
+					}
 				}
-				values[dir.dx+1][dir.dy+1] += 1000000*(10+rc.senseRubble(testloc)/10.);
-				if (!enemy_shootable_now && cannot_shoot_enemy_from_testloc) {
-					values[dir.dx+1][dir.dy+1] += 10000;
+				for (int i=Info.n_enemy_watchtowers; --i>=0;) {
+					n_enemy_shootable = n_enemy_shootable + (testloc.isWithinDistanceSquared(Info.enemy_watchtowers[i].location, RobotType.SOLDIER.actionRadiusSquared)? 1 : 0);
+					n_enemy_visible = n_enemy_visible + (testloc.isWithinDistanceSquared(Info.enemy_watchtowers[i].location, RobotType.SOLDIER.visionRadiusSquared)? 1 : 0);
+				}
+				for (int i=Info.n_enemy_sages; --i>=0;) {
+					n_enemy_shootable = n_enemy_shootable + (testloc.isWithinDistanceSquared(Info.enemy_sages[i].location, RobotType.SOLDIER.actionRadiusSquared)? 1 : 0);
+					n_enemy_visible = n_enemy_visible + (testloc.isWithinDistanceSquared(Info.enemy_sages[i].location, RobotType.SOLDIER.visionRadiusSquared)? 1 : 0);
+				}
+				if (enemy_shootable_now) {
+					values[dir.dx+1][dir.dy+1] = +1000*n_enemy_shootable+n_enemy_visible + 2000*(Math.floor((1+rc.senseRubble(testloc)/10.)*RobotType.SOLDIER.actionCooldown)) + (Comms.attacker_seen_before? -0.0001*(Comms.closest_attacker_dx-dir.dx)*(Comms.closest_attacker_dx-dir.dx)+(Comms.closest_attacker_dy-dir.dy)*(Comms.closest_attacker_dy-dir.dy) : 0);
+				}
+				else {
+					double neg_approx_distance = 0;
+					if (Comms.attacker_seen_before) {
+						neg_approx_distance = Comms.closest_attacker_dx/Comms.closest_attacker_dist*dir.dx + Comms.closest_attacker_dy/Comms.closest_attacker_dist*dir.dy;
+					}
+					else if (Comms.enemy_seen_before) {
+						neg_approx_distance = Comms.closest_enemy_dx/Comms.closest_enemy_dist*dir.dx + Comms.closest_enemy_dy/Comms.closest_enemy_dist*dir.dy;
+					}
+					values[dir.dx+1][dir.dy+1] = ((n_enemy_shootable > 0)? n_enemy_shootable : 1000) + neg_approx_distance + 1000*(1+rc.senseRubble(testloc)/10.);
+				}
+				if (Soldier.healing) {
+					boolean within_healing_range = false;
+					for (int i=Info.n_friendly_archons; --i>=0;) {
+						if (Info.friendly_archons[i].location.isWithinDistanceSquared(Info.loc, RobotType.ARCHON.actionRadiusSquared)) {
+							within_healing_range = true;
+						}
+					}
+					values[dir.dx+1][dir.dy+1] += within_healing_range? 0 : 100;
 				}
 			}
 			else {
@@ -294,4 +348,72 @@ public class Micro {
 
 		return values;
 	}
+	
+//	public static double[][] battle_tile_values_sparser() throws GameActionException {
+//		
+//		boolean enemy_shootable_now = false;
+//		for (int i=Info.n_enemy_soldiers; --i>=0;) {
+//			enemy_shootable_now = enemy_shootable_now || Info.loc.isWithinDistanceSquared(Info.enemy_soldiers[i].location, Info.ACTION_DIST2);
+//		}
+//		for (int i=Info.n_enemy_watchtowers; --i>=0;) {
+//			enemy_shootable_now = enemy_shootable_now || Info.loc.isWithinDistanceSquared(Info.enemy_watchtowers[i].location, Info.ACTION_DIST2);
+//		}
+//		for (int i=Info.n_enemy_sages; --i>=0;) {
+//			enemy_shootable_now = enemy_shootable_now || Info.loc.isWithinDistanceSquared(Info.enemy_sages[i].location, Info.ACTION_DIST2);
+//		}
+//		
+////		boolean[] preoccupied = new boolean[Info.n_enemy_attackers];
+////		for (int i=Info.n_enemy_attackers; --i>=0;) {
+////			RobotInfo enemy = Info.get_enemy_attacker(i);
+////			for (int j=Info.n_friendly_soldiers; --j>=0;) {
+////				RobotInfo friend = Info.friendly_soldiers[i];
+////				if (friend.location.isWithinDistanceSquared(enemy.location, 20)) {
+////					preoccupied[i] = true;
+////					break;
+////				}
+////			}
+////		}
+//
+//		double[][] dpsrubblemap = new double[3][3];
+//		for (int d=9; --d>=0;) {
+//			MapLocation testloc = Info.loc.translate(d/3-1, d%3-1);
+//			dpsrubblemap[d/3][d%3] = 1/(1+rc.senseRubble(testloc)/10.);
+//		}
+//		double[][] values = new double[3][3];
+//		boolean[][] can_shoot_attacker = new boolean[3][3];
+//		for (int i=Info.n_enemy_attackers; --i>=0;) {
+//			RobotInfo robot = Info.get_enemy_attacker(i);
+//			double enemy_rubble_coeff = 1+rc.senseRubble(robot.location)/10.;
+//			double enemy_dps = robot.type.damage/enemy_rubble_coeff/(robot.type.actionCooldown/10.);
+//			for (int d=9; --d>=0;) {
+//				MapLocation testloc = Info.loc.translate(d/3-1, d%3-1);
+//				if (testloc.isWithinDistanceSquared(robot.location, 34)) {
+//					values[d/3][d%3] += (10/16)*enemy_dps;
+//					if (testloc.isWithinDistanceSquared(robot.location, 20)) {
+//						values[d/3][d%3] += (6/16)*enemy_dps;
+//						can_shoot_attacker[d/3][d%3] = true;
+//					}
+//				}
+//			}
+//		}
+//		double self_dps_without_rubble = RobotType.SOLDIER.damage/(1+Info.rubble/10.)/(RobotType.SOLDIER.actionCooldown/10.);
+//		for (int d=9; --d>=0;) {
+//			MapLocation testloc = Info.loc.translate(d/3-1, d%3-1);
+//			values[d/3][d%3] -= can_shoot_attacker[d/3][d%3]? self_dps_without_rubble/(1+rc.senseRubble(testloc)/10.) : 0;
+//			values[d/3][d%3] += (enemy_shootable_now? 0.000001 : -0.000001)*(d/3*Comms.closest_attacker_dx/Comms.closest_attacker_dist + d%3*Comms.closest_attacker_dy/Comms.closest_attacker_dist);
+//			values[d/3][d%3] += (enemy_shootable_now ^ can_shoot_attacker[d/3][d%3])? 100 : -100;
+//		}
+//		for (int i=Info.n_friendly_archons; --i>=0;) {
+//			RobotInfo robot = Info.friendly_archons[i];
+//			double healing_dps = 2/(1+rc.senseRubble(robot.location)/10.)/(robot.type.actionCooldown/10.);
+//			for (int d=9; --d>=0;) {
+//				MapLocation testloc = Info.loc.translate(d/3-1, d%3-1);
+//				if (testloc.isWithinDistanceSquared(robot.location, 34)) {
+//					values[d/3][d%3] -= healing_dps;
+//				}
+//			}
+//		}
+//
+//		return values;
+//	}
 }
