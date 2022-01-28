@@ -36,6 +36,7 @@ public class Action {
 			Archon.builder_urgency = 0;
 			Archon.release_reserved_lead = true;
 			Comms.set(30, 1);  // builder presence flag
+			Archon.last_builder_made_round = Info.round_num;
 		}
 		if (type == RobotType.MINER) {
 			Archon.miner_urgency = 0;

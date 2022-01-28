@@ -212,6 +212,10 @@ public class Miner {
 			return true;
 		}
 		
+		if (Info.n_friendly_laboratories > 0 && Comms.attacker_seen_before) {
+			explore_loc = Comms.closest_attacker_loc;
+		}
+		
 		if (Info.move_ready && !healing) {  // explore
 			if (explore_loc == null || Info.loc.isWithinDistanceSquared(explore_loc, 10)) {
 				get_new_explore_loc();
@@ -224,7 +228,7 @@ public class Miner {
 //					explore_loc = new MapLocation(Math.max(0, Math.min(Info.MAP_WIDTH-1, Info.rng.nextInt(Info.MAP_WIDTH+8)-4)), Math.max(0, Math.min(Info.MAP_HEIGHT-1, Info.rng.nextInt(Info.MAP_HEIGHT))));
 //				}
 //				Action.move(Bfs.way_to(explore_loc, 100, false));
-			rc.setIndicatorLine(Info.loc, explore_loc, 0, 0, 0);
+//			rc.setIndicatorLine(Info.loc, explore_loc, 0, 0, 0);
 			Action.move(Bfs.direction(Bfs.query(explore_loc, 100, 2000, true)));
 			return true;
 		}

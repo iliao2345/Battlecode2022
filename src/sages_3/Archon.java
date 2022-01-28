@@ -49,6 +49,8 @@ public class Archon {
 	public static boolean far_archon = false;
 	public static boolean save_lead_for_transmutation = false;
 	public static boolean stop_building_lead_units = false;
+	public static boolean make_a_builder = false;
+	public static int last_builder_made_round = 0;
 	
 	public static void update() throws GameActionException {
 		lead_tiles = rc.senseNearbyLocationsWithLead(Info.VISION_DIST2, 2);
@@ -152,7 +154,7 @@ public class Archon {
 //			controlled_tiles_checked = 1/CONTROL_DECAY;
 //			controlled_tiles = controlled_tiles_checked/2;
 		}
-		boolean lacking_miners = Comms.total_miner_count < BEST_MINER_DENSITY * controlled_area && Comms.total_miner_count < (rc.getRobotCount()-rc.getArchonCount())/2 || Comms.total_miner_count < 0.3*(rc.getRobotCount()-rc.getArchonCount());
+		boolean lacking_miners = Comms.total_miner_count < BEST_MINER_DENSITY * controlled_area && Comms.total_miner_count < (rc.getRobotCount()-rc.getArchonCount())/2 || Comms.total_miner_count < 0.4*(rc.getRobotCount()-rc.getArchonCount());
 
 //		rc.setIndicatorString(String.valueOf(controlled_tiles/controlled_tiles_checked));
 //		rc.setIndicatorString(String.valueOf(Comms.total_miner_count));
@@ -176,11 +178,14 @@ public class Archon {
 //		boolean send_initial_soldiers = Comms.total_miner_count >= Comms.n_starting_archons*3 && rc.getRobotCount()-rc.getArchonCount()-Comms.total_miner_count < Comms.n_starting_archons;
 		boolean send_initial_soldiers = false;
 
-		boolean make_a_builder = false;
+		make_a_builder = false;
 		save_lead_for_transmutation = false;
 		if (Info.TEST_SAGES) {
-			save_lead_for_transmutation = Comms.builder_exists && rc.getRobotCount()-rc.getArchonCount() > 20;
-			make_a_builder = !Comms.builder_exists && rc.getRobotCount()-rc.getArchonCount() > 20;
+			save_lead_for_transmutation = Comms.builder_exists && rc.getRobotCount()-rc.getArchonCount()-Comms.total_miner_count > 10 && Info.lead < 275;
+			make_a_builder = !Comms.builder_exists && rc.getRobotCount()-rc.getArchonCount()-Comms.total_miner_count > 10;
+			if (!make_a_builder) {
+				builder_urgency = 0;
+			}
 		}
 		
 		stop_building_lead_units = false;
@@ -196,15 +201,15 @@ public class Archon {
 //			builder_rate = 0;
 //		}
 		else if (initial_mining_phase && !send_initial_soldiers && !save_lead_for_transmutation) {
-			soldier_rate = Info.round_num < 3? 0 : 50 - 20*Math.sqrt(Info.loc.distanceSquaredTo(closest_possible_enemy_starting_archon_loc))/60;
+			soldier_rate = Info.round_num < 3? 0 : 40 - 30*Math.sqrt(Info.loc.distanceSquaredTo(closest_possible_enemy_starting_archon_loc))/60;
 			builder_rate = 0;
 			miner_rate = (100-soldier_rate)*self_closest_area/(Info.MAP_WIDTH*Info.MAP_HEIGHT);
 		}
-		else if (Info.round_num < stop_econ_round*1.3 && !save_lead_for_transmutation) {
-			soldier_rate = 100;
-			miner_rate = 0;
-			builder_rate = 0;
-		}
+//		else if (Info.round_num < stop_econ_round*1.3 && !save_lead_for_transmutation) {
+//			soldier_rate = 100;
+//			miner_rate = 0;
+//			builder_rate = 0;
+//		}
 		else if (Comms.enemy_seen_before && lacking_miners) {
 			miner_rate = 100*self_closest_area/(Info.MAP_WIDTH*Info.MAP_HEIGHT);
 			soldier_rate = 0;
@@ -271,7 +276,7 @@ public class Archon {
 				MapLocation[] search_locs = rc.getAllLocationsWithinRadiusSquared(Info.loc, move_radius_squared);
 				MapLocation target_loc = Comms.enemy_seen_before? Comms.closest_enemy_loc : closest_possible_enemy_starting_archon_loc;
 				for (MapLocation loc:search_locs) {
-					if (rc.senseRubble(loc) + 0.001*Info.loc.distanceSquaredTo(loc) < lowest_rubble && loc.isWithinDistanceSquared(target_loc, MAX_ARCHON_WARZONE_SEPARATION_DIST2) && !loc.isWithinDistanceSquared(target_loc, MIN_ARCHON_WARZONE_SEPARATION_DIST2) && !rc.isLocationOccupied(loc)) {
+					if (rc.senseRubble(loc) + 0.001*Info.loc.distanceSquaredTo(loc) < lowest_rubble && loc.isWithinDistanceSquared(target_loc, MAX_ARCHON_WARZONE_SEPARATION_DIST2) && !loc.isWithinDistanceSquared(target_loc, MIN_ARCHON_WARZONE_SEPARATION_DIST2) && (!rc.isLocationOccupied(loc) || loc.equals(Info.loc))) {
 						best_loc = loc;
 						lowest_rubble = rc.senseRubble(loc) + 0.001*Info.loc.distanceSquaredTo(loc);
 					}
@@ -373,7 +378,7 @@ public class Archon {
 				}
 			}
 		}
-        if (closest_dir != null) {
+        if (closest_dir != null && (desired_robot!=RobotType.BUILDER || make_a_builder)) {
             Action.buildRobot(desired_robot, closest_dir);
             return;
         }
@@ -468,6 +473,9 @@ public class Archon {
 //			rc.setIndicatorDot(Info.loc, 255, 0, 0);
         }
         if (Comms.enemy_seen_before) {
+        	if (desired_robot == RobotType.BUILDER) {
+            	communicated_urgency += (int)Comms.closest_enemy_dist;
+        	}
         	communicated_urgency += 100-(int)Comms.closest_enemy_dist;
         }
         if (stop_building_lead_units) {

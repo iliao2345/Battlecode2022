@@ -33,6 +33,10 @@ import battlecode.common.*;
  * shared_arr[29] is the number of starting archons
  * 
  * shared_arr[30][0] is set to 0 by last archon and is set to 1 by builders
+ * // shared_arr[30][8:1] is set to 0 by last archon and is incremented by labs
+ * // shared_arr[30][15:8] is set to shared_arr[30][8:1] before shared_arr[30][8:1] gets reset. it serves as a lab count
+ * 
+ * // shared_arr[31:41][12:6], shared_arr[31:41][6:0] are the coords of up to 10 labs
  * 
  */
 
@@ -525,6 +529,9 @@ public class Comms {
 				((Archon.desired_robot==RobotType.MINER)? 1 : 2);
 			set(15+archon_number, Math.min(Archon.communicated_urgency, (1<<13)-1) + (Archon.release_reserved_lead? (1<<13) : 0) + (build_type<<14));
 			set(25+archon_number, Archon.health_to_heal);
+			if (Info.round_num - Archon.last_builder_made_round < 5) {
+				set(30, 1);
+			}
 		}
 		if (Info.type == RobotType.BUILDER) {
 			set(30, 1);

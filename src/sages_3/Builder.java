@@ -9,6 +9,8 @@ public class Builder {
 	public static boolean back_edge = false;
 	public static boolean build_new_lab = false;
 	public static MapLocation build_loc = null;
+	public static MapLocation[] lab_locs = new MapLocation[] {new MapLocation(-100,-100), new MapLocation(-100,-100), new MapLocation(-100,-100), new MapLocation(-100,-100), new MapLocation(-100,-100)};
+	public static int n_lab_locs = 0;
 	
 	public static void update() throws GameActionException {
 		back_edge = true;
@@ -17,11 +19,30 @@ public class Builder {
 			double back_dy = -Comms.closest_enemy_dy/Comms.closest_enemy_dist;
 			MapLocation test_loc_0 = Info.loc.translate((int)(7*back_dx+3*back_dy), (int)(7*back_dy-3*back_dx));
 			MapLocation test_loc_1 = Info.loc.translate((int)(7*back_dx-3*back_dy), (int)(7*back_dy+3*back_dx));
-			back_edge = (test_loc_0.x < 0 || test_loc_0.x > Info.MAP_WIDTH-1 || test_loc_0.y < 0 || test_loc_0.y > Info.MAP_HEIGHT-1) && (test_loc_1.x < 0 || test_loc_1.x > Info.MAP_WIDTH-1 || test_loc_1.y < 0 || test_loc_1.y > Info.MAP_HEIGHT-1);
+			rc.setIndicatorLine(Info.loc, test_loc_0, 255, 0, 0);
+			rc.setIndicatorLine(Info.loc, test_loc_1, 255, 0, 0);
+//			back_edge = (test_loc_0.x < 0 || test_loc_0.x > Info.MAP_WIDTH-1 || test_loc_0.y < 0 || test_loc_0.y > Info.MAP_HEIGHT-1) && (test_loc_1.x < 0 || test_loc_1.x > Info.MAP_WIDTH-1 || test_loc_1.y < 0 || test_loc_1.y > Info.MAP_HEIGHT-1);
+			back_edge = Info.friendly_robots.length < 3 && Comms.closest_attacker_dist > 20 || (test_loc_0.x < 0 || test_loc_0.x > Info.MAP_WIDTH-1 || test_loc_0.y < 0 || test_loc_0.y > Info.MAP_HEIGHT-1) && (test_loc_1.x < 0 || test_loc_1.x > Info.MAP_WIDTH-1 || test_loc_1.y < 0 || test_loc_1.y > Info.MAP_HEIGHT-1);
 		}
-//		back_edge = Info.x < 3 || Info.x > Info.MAP_WIDTH-1-3 || Info.y < 3 || Info.y > Info.MAP_HEIGHT-1-3;
 		build_new_lab = false;
 		build_loc = null;
+		for (int i=5; --i>=0;) {
+			if (rc.canSenseLocation(lab_locs[i]) && !rc.isLocationOccupied(lab_locs[i])) {
+				lab_locs[i] = new MapLocation(-100, -100);
+			}
+		}
+		if (Info.n_friendly_laboratories > 0) {
+			for (int i=5; --i>=0;) {
+				RobotInfo robot = Info.friendly_laboratories[Info.rng.nextInt(Info.n_friendly_laboratories)];
+				boolean seen_before = lab_locs[0].equals(robot.location) || lab_locs[1].equals(robot.location) || lab_locs[2].equals(robot.location) || lab_locs[3].equals(robot.location) || lab_locs[4].equals(robot.location);
+				if (!seen_before) {
+					lab_locs[n_lab_locs++ % 5] = robot.location;
+				}
+			}
+		}
+//		for (int i=5; --i>=0;) {
+//			rc.setIndicatorLine(Info.loc, lab_locs[i], 255, 0, 0);
+//		}
 	}
 	
 	public static void try_to_move() throws GameActionException {
@@ -92,7 +113,7 @@ public class Builder {
 				best_loc = Info.loc.translate(Info.x - Info.MAP_WIDTH/2-1, Info.y-Info.MAP_HEIGHT/2-1);
 			}
 			rc.setIndicatorLine(Info.loc, best_loc, 0, 0, 255);
-			Action.move(Bfs.direction(Bfs.query(best_loc, 100, 1, false)));
+			Action.move(Bfs.direction(Bfs.query(best_loc, 100, 2000, false)));
 			return;
 		}
 		else if (Comms.enemy_seen_before && !back_edge) {  // flee warzone
@@ -100,46 +121,69 @@ public class Builder {
 			int target_y = Math.min(Info.MAP_HEIGHT, Math.max(0, Info.y + (int)(-10*Comms.closest_enemy_dy/Comms.closest_enemy_dist)));
 			MapLocation target_loc = new MapLocation(target_x, target_y);
 			rc.setIndicatorLine(Info.loc, target_loc, 128, 0, 0);
-			Action.move(Bfs.direction(Bfs.query(target_loc, 100, 1, false)));
+			Action.move(Bfs.direction(Bfs.query(target_loc, 100, 2000, false)));
 			return;
 		}
-//		else if (Info.friendly_robots.length > 1) {
-//			double total_x = 0;
-//			double total_y = 0;
-//			for (RobotInfo robot:Info.friendly_robots) {
-//				total_x += robot.location.x;
-//				total_y += robot.location.y;
-//			}
-//			double mean_dx = total_x/Info.friendly_robots.length - Info.x;
-//			double mean_dy = total_y/Info.friendly_robots.length - Info.y;
-//			double r = Math.hypot(mean_dx, mean_dy);
-//			if (r>1e-10) {
-//				MapLocation target_loc = Info.loc.translate((int)(-1000*mean_dx/r), (int)(-1000*mean_dy/r));
-//				Action.move(Bfs.direction(Bfs.query(target_loc, 100, 1, false)));
-//			}
-//			return;
-//		}
+		else if (Info.friendly_robots.length >= 3) {
+			double total_x = 0;
+			double total_y = 0;
+			for (RobotInfo robot:Info.friendly_robots) {
+				total_x += robot.location.x;
+				total_y += robot.location.y;
+			}
+			double mean_dx = total_x/Info.friendly_robots.length - Info.x;
+			double mean_dy = total_y/Info.friendly_robots.length - Info.y;
+			double r = Math.hypot(mean_dx, mean_dy);
+			if (r>1e-10) {
+				MapLocation target_loc = Info.loc.translate((int)(-1000*mean_dx/r), (int)(-1000*mean_dy/r));
+				Action.move(Bfs.direction(Bfs.query(target_loc, 100, 1, false)));
+			}
+			return;
+		}
 		else {
-			int rubble = Integer.MAX_VALUE;
+//			double dx = 0;
+//			double dy = 0;
+//			if (Info.friendly_robots.length >= 6) {
+//				for (RobotInfo robot:Info.friendly_robots) {
+//					dx += robot.location.x;
+//					dy += robot.location.y;
+//				}
+//				dx = dx / Info.friendly_robots.length - Info.x;
+//				dy = dy / Info.friendly_robots.length - Info.y;
+//			}
+			double best_rubble = Double.POSITIVE_INFINITY;
 			MapLocation best_loc = null;
 			for (MapLocation loc:Info.visible_tiles) {
-				if (rc.senseRubble(loc) < rubble && !rc.isLocationOccupied(loc)) {
-					rubble = rc.senseRubble(loc);
+				if ((loc.isWithinDistanceSquared(lab_locs[0], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(lab_locs[1], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(lab_locs[2], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(lab_locs[3], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(lab_locs[4], RobotType.LABORATORY.visionRadiusSquared)? 1:0) > 1) {
+					continue;
+				}
+				double rubble = rc.senseRubble(loc) + 0.00001*Info.loc.distanceSquaredTo(loc);
+				if (rubble < best_rubble && !rc.isLocationOccupied(loc)) {
+					best_rubble = rubble;
 					best_loc = loc;
 				}
 			}
+			if (best_loc==null) {
+				double dx = (lab_locs[0].x + lab_locs[1].x + lab_locs[2].x + lab_locs[3].x + lab_locs[4].x) / 5. - Info.x+0.001;
+				double dy = (lab_locs[0].y + lab_locs[1].y + lab_locs[2].y + lab_locs[3].y + lab_locs[4].y) / 5. - Info.y;
+				best_loc = Info.loc.translate((int)(-1000*dx/Math.hypot(dx, dy)), (int)(-1000*dy/Math.hypot(dx, dy)));
+			}
+			if (best_loc != null) {
+				rc.setIndicatorLine(Info.loc, best_loc, 0, 255, 0);
+			}
 			if (best_loc != null && !Info.loc.equals(best_loc) && !Info.loc.isAdjacentTo(best_loc)) {
 				Action.move(Bfs.direction(Bfs.query(best_loc, 100, 2000, false)));
+				return;
 			}
 			if (best_loc != null && Info.loc.equals(best_loc)) {
 				Direction dir = Math2.UNIT_DIRECTIONS[Info.rng.nextInt(8)];
 				if (rc.canMove(dir)) {
-					Action.move(Bfs.direction(Bfs.query(best_loc, 100, 2000, false)));
+					Action.move(dir);
 				}
+				return;
 			}
 			build_new_lab = true;
 			build_loc = best_loc;
-			rc.setIndicatorLine(Info.loc, best_loc, 0, 255, 0);
 			return;
 		}
 	}
@@ -184,7 +228,10 @@ public class Builder {
 			Action.repair(strongest_robot.location);
 			return;
 		}
-		if (build_new_lab && Info.income_didt>0 && Info.income_estimate > 2 && Info.loc.isAdjacentTo(build_loc) && rc.canBuildRobot(RobotType.LABORATORY, Math2.direction_to(build_loc.x-Info.x, build_loc.y-Info.y))) {
+		if (build_new_lab) {
+			rc.setIndicatorLine(Info.loc, build_loc, 0, 255, 0);
+		}
+		if (build_new_lab && Info.loc.isAdjacentTo(build_loc) && rc.canBuildRobot(RobotType.LABORATORY, Math2.direction_to(build_loc.x-Info.x, build_loc.y-Info.y))) {
             Action.buildRobot(RobotType.LABORATORY, Math2.direction_to(build_loc.x-Info.x, build_loc.y-Info.y));
 		}
 	}

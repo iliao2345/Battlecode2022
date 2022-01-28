@@ -6,9 +6,28 @@ public class Laboratory {
 	public static final double PREFERRED_WARZONE_DIST = 10;
 	public static RobotController rc;
 	public static int transmute_cost = 0;
+	public static MapLocation[] other_unit_locs = new MapLocation[] {new MapLocation(-100, -100), new MapLocation(-100, -100), new MapLocation(-100, -100), new MapLocation(-100, -100), new MapLocation(-100, -100)};
+	public static int n_other_unit_locs = 0;
 	
 	public static void update() throws GameActionException {
 		transmute_cost = (int)Math.floor(20-18*Math.exp(-0.02*Info.friendly_robots.length));
+		for (int i=5; --i>=0;) {
+			if (rc.canSenseLocation(other_unit_locs[i]) && !rc.isLocationOccupied(other_unit_locs[i])) {
+				other_unit_locs[i] = new MapLocation(-100, -100);
+			}
+		}
+		if (Info.friendly_robots.length > 0) {
+			for (int i=5; --i>=0;) {
+				RobotInfo robot = Info.friendly_robots[Info.rng.nextInt(Info.friendly_robots.length)];
+				boolean seen_before = other_unit_locs[0].equals(robot.location) || other_unit_locs[1].equals(robot.location) || other_unit_locs[2].equals(robot.location) || other_unit_locs[3].equals(robot.location) || other_unit_locs[4].equals(robot.location);
+				if (!seen_before) {
+					other_unit_locs[n_other_unit_locs++ % 5] = robot.location;
+				}
+			}
+		}
+//		for (int i=5; --i>=0;) {
+//			rc.setIndicatorLine(Info.loc, other_unit_locs[i], 255, 0, 0);
+//		}
 	}
 	
 	public static void act() throws GameActionException {
@@ -16,7 +35,7 @@ public class Laboratory {
 //		if (transmute_cost == 2 && rc.canTransmute()) {
 //			Action.transmute();
 //		}
-		if (rc.canTransmute() && Info.lead >= 50+transmute_cost) {
+		if (rc.canTransmute() && Info.lead >= 50+transmute_cost && transmute_cost < 6) {
 			Action.transmute();
 		}
 	}
@@ -57,14 +76,33 @@ public class Laboratory {
 				double lowest_rubble = Double.MAX_VALUE;
 				int move_radius_squared = 13;
 				MapLocation[] search_locs = rc.getAllLocationsWithinRadiusSquared(Info.loc, move_radius_squared);
+				double dx = 0.001;
+				double dy = 0;
+				for (RobotInfo robot:Info.friendly_robots) {
+					dx += robot.location.x;
+					dy += robot.location.y;
+				}
+				dx = dx / Info.friendly_robots.length - Info.x;
+				dy = dy / Info.friendly_robots.length - Info.y;
 				for (MapLocation loc:search_locs) {
+//					if ((loc.isWithinDistanceSquared(other_unit_locs[0], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[1], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[2], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[3], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[4], RobotType.LABORATORY.visionRadiusSquared)? 1:0) > 1) {
+//						continue;
+//					}
+					if (dx*(loc.x-Info.x) + dy*(loc.y-Info.y) > -0.0001 && Info.friendly_robots.length >= 5) {
+						continue;
+					}
 					if (rc.senseRubble(loc) + 0.001*Info.loc.distanceSquaredTo(loc) < lowest_rubble && !loc.isWithinDistanceSquared(Comms.closest_enemy_loc, (int) (PREFERRED_WARZONE_DIST*PREFERRED_WARZONE_DIST)) && (!rc.isLocationOccupied(loc) || loc.equals(Info.loc))) {
 						best_loc = loc;
 						lowest_rubble = rc.senseRubble(loc) + 0.001*Info.loc.distanceSquaredTo(loc);
 					}
 				}
-				if (best_loc==null) {
+				if (best_loc==null && Comms.closest_enemy_dist < 15) {
 					best_loc = Info.loc.translate((int)(-1000*Comms.closest_enemy_dx/Comms.closest_enemy_dist), (int)(-1000*Comms.closest_enemy_dy/Comms.closest_enemy_dist));
+				}
+				if (best_loc==null) {
+//					double dx = (other_unit_locs[0].x + other_unit_locs[1].x + other_unit_locs[2].x + other_unit_locs[3].x + other_unit_locs[4].x) / 5. - Info.x+0.001;
+//					double dy = (other_unit_locs[0].y + other_unit_locs[1].y + other_unit_locs[2].y + other_unit_locs[3].y + other_unit_locs[4].y) / 5. - Info.y;
+					best_loc = Info.loc.translate((int)(-1000*dx/Math.hypot(dx, dy)), (int)(-1000*dy/Math.hypot(dx, dy)));
 				}
 			}
 			else {
@@ -72,10 +110,18 @@ public class Laboratory {
 				int move_radius_squared = 13;
 				MapLocation[] search_locs = rc.getAllLocationsWithinRadiusSquared(Info.loc, move_radius_squared);
 				for (MapLocation loc:search_locs) {
+					if ((loc.isWithinDistanceSquared(other_unit_locs[0], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[1], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[2], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[3], RobotType.LABORATORY.visionRadiusSquared)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[4], RobotType.LABORATORY.visionRadiusSquared)? 1:0) > 1) {
+						continue;
+					}
 					if (rc.senseRubble(loc) + 0.001*Info.loc.distanceSquaredTo(loc) < lowest_rubble && (!rc.isLocationOccupied(loc) || loc.equals(Info.loc))) {
 						best_loc = loc;
 						lowest_rubble = rc.senseRubble(loc) + 0.001*Info.loc.distanceSquaredTo(loc);
 					}
+				}
+				if (best_loc==null) {
+					double dx = (other_unit_locs[0].x + other_unit_locs[1].x + other_unit_locs[2].x + other_unit_locs[3].x + other_unit_locs[4].x) / 5. - Info.x+0.001;
+					double dy = (other_unit_locs[0].y + other_unit_locs[1].y + other_unit_locs[2].y + other_unit_locs[3].y + other_unit_locs[4].y) / 5. - Info.y;
+					best_loc = Info.loc.translate((int)(-1000*dx/Math.hypot(dx, dy)), (int)(-1000*dy/Math.hypot(dx, dy)));
 				}
 			}
 			rc.setIndicatorLine(Info.loc, best_loc, 0, 255, 0);
@@ -87,7 +133,7 @@ public class Laboratory {
 			Action.move(dir);
 			return;
 		}
-		if (rc.getMode() == RobotMode.TURRET && Comms.enemy_seen_before) {
+		if (rc.getMode() == RobotMode.TURRET && Comms.enemy_seen_before && Info.friendly_robots.length >= 6) {
 
 			MapLocation best_loc = null;
 			if (Comms.enemy_seen_before) {
@@ -95,6 +141,9 @@ public class Laboratory {
 				int move_radius_squared = 13;
 				MapLocation[] search_locs = rc.getAllLocationsWithinRadiusSquared(Info.loc, move_radius_squared);
 				for (MapLocation loc:search_locs) {
+					if ((loc.isWithinDistanceSquared(other_unit_locs[0], Info.VISION_DIST2)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[1], Info.VISION_DIST2)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[2], Info.VISION_DIST2)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[3], Info.VISION_DIST2)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[4], Info.VISION_DIST2)? 1:0) > 2) {
+						continue;
+					}
 					if (rc.senseRubble(loc) + 0.001*Info.loc.distanceSquaredTo(loc) < lowest_rubble && !loc.isWithinDistanceSquared(Comms.closest_enemy_loc, (int) (PREFERRED_WARZONE_DIST*PREFERRED_WARZONE_DIST)) && (!rc.isLocationOccupied(loc) || loc.equals(Info.loc))) {
 						best_loc = loc;
 						lowest_rubble = rc.senseRubble(loc) + 0.001*Info.loc.distanceSquaredTo(loc);
@@ -109,10 +158,18 @@ public class Laboratory {
 				int move_radius_squared = 13;
 				MapLocation[] search_locs = rc.getAllLocationsWithinRadiusSquared(Info.loc, move_radius_squared);
 				for (MapLocation loc:search_locs) {
+					if ((loc.isWithinDistanceSquared(other_unit_locs[0], Info.VISION_DIST2)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[1], Info.VISION_DIST2)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[2], Info.VISION_DIST2)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[3], Info.VISION_DIST2)? 1:0) + (loc.isWithinDistanceSquared(other_unit_locs[4], Info.VISION_DIST2)? 1:0) > 2) {
+						continue;
+					}
 					if (rc.senseRubble(loc) + 0.001*Info.loc.distanceSquaredTo(loc) < lowest_rubble && (!rc.isLocationOccupied(loc) || loc.equals(Info.loc))) {
 						best_loc = loc;
 						lowest_rubble = rc.senseRubble(loc) + 0.001*Info.loc.distanceSquaredTo(loc);
 					}
+				}
+				if (best_loc==null) {
+					double dx = (other_unit_locs[0].x + other_unit_locs[1].x + other_unit_locs[2].x + other_unit_locs[3].x + other_unit_locs[4].x) / 5. - Info.x+0.001;
+					double dy = (other_unit_locs[0].y + other_unit_locs[1].y + other_unit_locs[2].y + other_unit_locs[3].y + other_unit_locs[4].y) / 5. - Info.y;
+					best_loc = Info.loc.translate((int)(-1000*dx/Math.hypot(dx, dy)), (int)(-1000*dy/Math.hypot(dx, dy)));
 				}
 			}
 			

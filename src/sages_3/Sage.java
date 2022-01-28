@@ -22,7 +22,6 @@ public class Sage {
 	}
 	
 	public static void post_comms_update() throws GameActionException {
-		rc.setIndicatorString(String.valueOf(shot_cooldown));
 		double best_delay = Double.MAX_VALUE;
 		healing_loc = null;
 		for (int i=Comms.archon_positions.length; --i>=0;) {
@@ -57,55 +56,81 @@ public class Sage {
 		if (!Info.action_ready) {
 			return;
 		}
-		if (rc.senseNearbyRobots(Info.ACTION_DIST2, Info.enemy).length >= 8) {
+		if (rc.senseNearbyRobots(Info.ACTION_DIST2, Info.enemy).length >= 5 && rc.senseNearbyRobots(34, Info.enemy).length > 0) {
 			Action.envision(AnomalyType.CHARGE);
 			return;
 		}
-		return;
-//		RobotInfo weakest_robot = null;
-//		int weakest_health = Integer.MAX_VALUE;
-//		int strongest_health = 0;
-//		for (int i=Info.n_enemy_sages; --i>=0;) {
-//			if (Info.enemy_sages[i].health < weakest_health && Info.loc.isWithinDistanceSquared(Info.enemy_sages[i].location, Info.ACTION_DIST2)) {
-//				weakest_robot = Info.enemy_sages[i];
-//				weakest_health = Info.enemy_sages[i].health;
-//			}
-//		}
-//		if (weakest_robot == null) {
-//			for (int i=Info.n_enemy_soldiers; --i>=0;) {
-//				if (Info.enemy_soldiers[i].health > strongest_health && Info.enemy_soldiers[i].health <= 45 && Info.loc.isWithinDistanceSquared(Info.enemy_soldiers[i].location, Info.ACTION_DIST2)) {
-//					weakest_robot = Info.enemy_soldiers[i];
-//					strongest_health = Info.enemy_soldiers[i].health;
-//				}
-//			}
-//		}
-//		if (weakest_robot == null) {
-//			for (int i=Info.n_enemy_soldiers; --i>=0;) {
-//				if (Info.enemy_soldiers[i].health < weakest_health && Info.loc.isWithinDistanceSquared(Info.enemy_soldiers[i].location, Info.ACTION_DIST2)) {
-//					weakest_robot = Info.enemy_soldiers[i];
-//					weakest_health = Info.enemy_soldiers[i].health;
-//				}
-//			}
-//		}
-//		if (weakest_robot == null) {
-//			for (int i=Info.n_enemy_watchtowers; --i>=0;) {
-//				if (Info.enemy_watchtowers[i].health < weakest_health && Info.loc.isWithinDistanceSquared(Info.enemy_watchtowers[i].location, Info.ACTION_DIST2)) {
-//					weakest_robot = Info.enemy_watchtowers[i];
-//					weakest_health = Info.enemy_watchtowers[i].health;
-//				}
-//			}
-//		}
-//		if (weakest_robot == null) {
-//			for (int i=Info.n_enemy_miners; --i>=0;) {
-//				if (Info.enemy_miners[i].health < weakest_health && Info.loc.isWithinDistanceSquared(Info.enemy_miners[i].location, Info.ACTION_DIST2)) {
-//					weakest_robot = Info.enemy_miners[i];
-//					weakest_health = Info.enemy_miners[i].health;
-//				}
-//			}
-//		}
-//		if (weakest_robot != null) {
-//			Action.attack(weakest_robot.location);
-//		}
+		if (Info.n_enemy_attackers > 1) {
+			return;
+		}
+		RobotInfo weakest_robot = null;
+		int weakest_health = Integer.MAX_VALUE;
+		int strongest_health = 0;
+		for (int i=Info.n_enemy_sages; --i>=0;) {
+			if (Info.enemy_sages[i].health < weakest_health && Info.loc.isWithinDistanceSquared(Info.enemy_sages[i].location, Info.ACTION_DIST2)) {
+				weakest_robot = Info.enemy_sages[i];
+				weakest_health = Info.enemy_sages[i].health;
+			}
+		}
+		if (weakest_robot == null) {
+			for (int i=Info.n_enemy_soldiers; --i>=0;) {
+				if (Info.enemy_soldiers[i].health > strongest_health && Info.enemy_soldiers[i].health <= 45 && Info.loc.isWithinDistanceSquared(Info.enemy_soldiers[i].location, Info.ACTION_DIST2)) {
+					weakest_robot = Info.enemy_soldiers[i];
+					strongest_health = Info.enemy_soldiers[i].health;
+				}
+			}
+		}
+		if (weakest_robot == null) {
+			for (int i=Info.n_enemy_soldiers; --i>=0;) {
+				if (Info.enemy_soldiers[i].health < weakest_health && Info.loc.isWithinDistanceSquared(Info.enemy_soldiers[i].location, Info.ACTION_DIST2)) {
+					weakest_robot = Info.enemy_soldiers[i];
+					weakest_health = Info.enemy_soldiers[i].health;
+				}
+			}
+		}
+		if (weakest_robot == null) {
+			for (int i=Info.n_enemy_watchtowers; --i>=0;) {
+				if (Info.enemy_watchtowers[i].health < weakest_health && Info.loc.isWithinDistanceSquared(Info.enemy_watchtowers[i].location, Info.ACTION_DIST2)) {
+					weakest_robot = Info.enemy_watchtowers[i];
+					weakest_health = Info.enemy_watchtowers[i].health;
+				}
+			}
+		}
+		if (weakest_robot == null) {
+			for (int i=Info.n_enemy_miners; --i>=0;) {
+				if (Info.enemy_miners[i].health < weakest_health && Info.loc.isWithinDistanceSquared(Info.enemy_miners[i].location, Info.ACTION_DIST2)) {
+					weakest_robot = Info.enemy_miners[i];
+					weakest_health = Info.enemy_miners[i].health;
+				}
+			}
+		}
+		if (weakest_robot == null) {
+			for (int i=Info.n_enemy_archons; --i>=0;) {
+				if (Info.enemy_archons[i].health < weakest_health && Info.loc.isWithinDistanceSquared(Info.enemy_archons[i].location, Info.ACTION_DIST2)) {
+					weakest_robot = Info.enemy_archons[i];
+					weakest_health = Info.enemy_archons[i].health;
+				}
+			}
+		}
+		if (weakest_robot == null) {
+			for (int i=Info.n_enemy_laboratories; --i>=0;) {
+				if (Info.enemy_laboratories[i].health < weakest_health && Info.loc.isWithinDistanceSquared(Info.enemy_laboratories[i].location, Info.ACTION_DIST2)) {
+					weakest_robot = Info.enemy_laboratories[i];
+					weakest_health = Info.enemy_laboratories[i].health;
+				}
+			}
+		}
+		if (weakest_robot == null) {
+			for (int i=Info.n_enemy_builders; --i>=0;) {
+				if (Info.enemy_builders[i].health < weakest_health && Info.loc.isWithinDistanceSquared(Info.enemy_builders[i].location, Info.ACTION_DIST2)) {
+					weakest_robot = Info.enemy_builders[i];
+					weakest_health = Info.enemy_builders[i].health;
+				}
+			}
+		}
+		if (weakest_robot != null) {
+			Action.attack(weakest_robot.location);
+		}
 	}
 
 	public static void try_to_move() throws GameActionException {
@@ -200,7 +225,7 @@ public class Sage {
 				target_loc = new MapLocation(Info.MAP_WIDTH/2, Info.MAP_HEIGHT/2);
 			}
 			rc.setIndicatorLine(Info.loc, target_loc, 0, 255, 0);
-			Action.move(Bfs.direction(Bfs.query(target_loc, Info.rubble_quantile, 1, true)));
+			Action.move(Bfs.direction(Bfs.query(target_loc, Info.rubble_quantile, 2000, true)));
 			return;
 		}
 	}

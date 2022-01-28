@@ -4,7 +4,7 @@ import java.util.Random;
 import battlecode.common.*;
 
 public class Info {
-	public static final boolean TEST_SAGES = false;
+	public static final boolean TEST_SAGES = true;
     public static Random rng = new Random(6147);
 	public static RobotController rc;
 	public static Team friendly;
